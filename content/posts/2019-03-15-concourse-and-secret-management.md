@@ -4,10 +4,9 @@ title: Concourse and Secret Management
 date: 2019-03-15T16:41:34+00:00
 author: ellinj
 layout: post
+description: Ggood CI/CD pipelines with the management of passwords and other credentials required for deployment.
 
 permalink: /2019/03/15/concourse-and-secret-management/
-categories:
-  - concourse
 tags:
   - concourse
 ---

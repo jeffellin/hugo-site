@@ -1,8 +1,5 @@
 theme = "diary"
-[[menu.main]]
-url = "/categories"
-name = "Categories"
-weight = 2
+title = "Ellin.com"
 [[menu.main]]
 url = "/tags"
 name = "Tags"
@@ -19,16 +16,18 @@ url = "http://github.com/jeffellin"
 name = "GitHub"
 weight = 100
 
-title = "A Hugo Site"
+title = "Ellin.com : Not very interesting"
 copyright = "This is a customized copyright."
 
 baseURL = "/sd"
 [params]
-subtitle = "Not so Interesting Blog"
-title = "Application Modernization Cookbook"
+subtitle = "Not Very Interesting"
 
-enableGitalk = true
-
+enableGitalk = false
+client_id = 'e147ed0583a8619e69d7'
+client_secret = '24326a852c8cb777edf1bead380e866966f76131'
+repo =  'hugo-site'
+owner =  'jeffellin'
 
 [permalinks]
   posts = "/:year/:month/:day/:title/"
