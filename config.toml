@@ -1,5 +1,7 @@
 theme = "diary"
 title = "Ellin.com"
+baseURL = "https://ellin.com/"
+
 [[menu.main]]
 url = "/tags"
 name = "Tags"
@@ -19,7 +21,6 @@ weight = 100
 title = "Ellin.com : Not very interesting"
 copyright = "This is a customized copyright."
 
-baseURL = "/sd"
 [params]
 subtitle = "Not Very Interesting"
 
