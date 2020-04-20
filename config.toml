@@ -27,7 +27,7 @@ baseURL = "/sd"
 subtitle = "Not so Interesting Blog"
 title = "Application Modernization Cookbook"
 
-enableGitalk = false
+enableGitalk = true
 
 
 [permalinks]

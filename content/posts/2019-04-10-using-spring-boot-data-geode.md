@@ -1,14 +1,11 @@
----
-id: 717
-title: Using Spring Boot Data Geode
-date: 2019-04-10T15:12:35+00:00
-author: ellinj
-layout: post
-
-permalink: /2019/04/10/using-spring-boot-data-geode/
-categories:
-  - Uncategorized
----
++++
+title =  "Using Spring Boot Data Geode"
+date = 2019-04-10T13:35:15-04:00
+tags = ["geode"]
+featured_image = ""
+description = "One aspect of creating good CI/CD pipelines is the management of passwords and other credentials required for deployment. A typical concourse pipeline will poll for updates in a git repo, do a build and then push the results to a PaaS such as Kubernetes or Cloud Foundry."
+draft = "false"
++++
 <meta charset="utf-8" />
 
 <link rel="stylesheet" href="https://unpkg.com/markdown-core@1.1.0/dist/index.bundle.css" />
@@ -30,23 +27,26 @@ categories:
   </li>
 </ul>
 
-    <dependency>
-        <groupId>org.springframework.geode</groupId>
-        <artifactId>spring-gemfire-starter</artifactId>
-        <version>1.0.0.M4</version>
-    </dependency>
+```xml
+<dependency>
+    <groupId>org.springframework.geode</groupId>
+    <artifactId>spring-gemfire-starter</artifactId>
+    <version>1.0.0.M4</version>
+</dependency>
+```
     
 
 <p data-source-line="15">
   or
 </p>
 
-    <dependency>
-        <groupId>org.springframework.geode</groupId>
-        <artifactId>spring-geode-starter</artifactId>
-        <version>1.0.0.M4</version>
-    </dependency>
-    
+```xml
+<dependency>
+    <groupId>org.springframework.geode</groupId>
+    <artifactId>spring-geode-starter</artifactId>
+    <version>1.0.0.M4</version>
+</dependency>
+```    
 
 <ul data-source-line="25">
   <li>
@@ -54,9 +54,10 @@ categories:
   </li>
 </ul>
 
-    @Cacheable({"books", "isbns"})
-    public Book findBook(ISBN isbn) {...}
-    
+```java
+@Cacheable({"books", "isbns"})
+public Book findBook(ISBN isbn) {...}
+```    
 
 <ul data-source-line="31">
   <li>
@@ -76,47 +77,53 @@ categories:
   The easiest way to get started is to use Docker to start a local cache on your laptop.
 </p>
 
-    docker run -ti -p 40404:40404 -p 10334:10334 apachegeode/geode:1.6.0 bash
-    
+```bash
+docker run -ti -p 40404:40404 -p 10334:10334 apachegeode/geode:1.6.0 bash
+```    
 
 <p data-source-line="44">
   Running this command will drop you into a GFSH shell that you can use to start the locator, server and create some regions.
 </p>
 
-    start locator --name locator
-    start server --name server1
-    create region --name /restrictionRegion --type=REPLICATE
-    
+```bash
+start locator --name locator
+start server --name server1
+create region --name /restrictionRegion --type=REPLICATE
+```    
 
 <p data-source-line="52">
   Since the <code>ClientCache</code> is already registered by spring boot, all you need to do is define a <code>ClientRegionFactoryBean</code> in your configuration.
 </p>
 
-        @Bean("restrictionRegion")
-        public ClientRegionFactoryBean<String, Boolean> restrictionRegion(GemFireCache cache) {
-            ClientRegionFactoryBean<String, Boolean> region = new ClientRegionFactoryBean<>();
-            region.setCache(cache);
-            region.setShortcut(ClientRegionShortcut.PROXY);
-            return region;
-        }
+```java
+@Bean("restrictionRegion")
+public ClientRegionFactoryBean<String, Boolean> restrictionRegion(GemFireCache cache) {
+    ClientRegionFactoryBean<String, Boolean> region = new ClientRegionFactoryBean<>();
+    region.setCache(cache);
+    region.setShortcut(ClientRegionShortcut.PROXY);
+    return region;
+}
+```
     
 
 <p data-source-line="64">
   You can then inject this region into your code and do Cache Get/Put Operations.
 </p>
 
-        @Resource(name = "restrictionRegion")
-        Region<String,Boolean> restrictionRegion;
-    
-        public  boolean checkRestriction(String key){
-           return restrictionRegion.get(key);
-        }
-    
+```java
+@Resource(name = "restrictionRegion")
+Region<String,Boolean> restrictionRegion;
 
+public  boolean checkRestriction(String key){
+    return restrictionRegion.get(key);
+}
+    
+```
 <p data-source-line="75">
   Upon starting the app, Spring Boot will automatically connect to the Cache cluster running on your machine. It will use the locator address of localhost[10334]. If you wish to connect to a different Cache, you can use the following spring properties.
 </p>
 
+```java
     #Comma-delimited list of Locator endpoints formatted as: locator1[port1],...,locatorN[portN]
     spring.data.gemfire.locators=localhost[10334]
     
@@ -125,7 +132,7 @@ categories:
     
     #Configures the user password used to authenticate with the servers.
     spring.data.gemfire.security.password
-    
+```    
 
 <h2 id="testing" data-source-line="88">
   <a class="anchor" href="#testing"><span class="octicon octicon-link"></span></a>Testing
@@ -152,7 +159,8 @@ categories:
   By far the easiest way to test Gemfire code is with mocks. The Gemfire region can easily be mocked using Mockito.
 </p>
 
-<pre><code class="hljs">private Region restrictionRegion;
+```java
+private Region restrictionRegion;
 
     @InjectMocks
     private RestrictionService restrictionService;
@@ -162,7 +170,8 @@ categories:
         when(restrictionRegion.get("restricted")).thenReturn(true);
 
         assertTrue((restrictionService.checkRestriction("restricted")));
-    }</code></pre>
+    }
+```
 
 <h3 id="integration-testing" data-source-line="114">
   <a class="anchor" href="#integration-testing"><span class="octicon octicon-link"></span></a>Integration Testing
@@ -189,60 +198,63 @@ categories:
   To start, add the following dependency to your project.
 </p>
 
-    <dependency>
-        <groupId>org.springframework.data</groupId>
-        <artifactId>spring-data-gemfire-test</artifactId>
-        <version>0.0.1.RC1</version>
-        <scope>test</scope>
-    </dependency>
-    
-    <repositories>
-        <repository>
-            <id>spring-snapshot</id>
-            <url>https://repo.spring.io/libs-snapshot</url>
-        </repository>
-    </repositories>
-    
+```xml
+<dependency>
+    <groupId>org.springframework.data</groupId>
+    <artifactId>spring-data-gemfire-test</artifactId>
+    <version>0.0.1.RC1</version>
+    <scope>test</scope>
+</dependency>
+
+<repositories>
+    <repository>
+        <id>spring-snapshot</id>
+        <url>https://repo.spring.io/libs-snapshot</url>
+    </repository>
+</repositories>
+```    
     
 
 <p data-source-line="142">
   Implement a <code>@CacheServerAppliction</code> to bootstrap the test server.
 </p>
 
-        @CacheServerApplication(name = "AutoConfiguredIntegrationTests", logLevel = GEMFIRE_LOG_LEVEL)
-        @EnablePdx
-        @EnableLocator
-        public static class GemFireServerConfiguration {
-            public static void main(String[] args) {
-                AnnotationConfigApplicationContext applicationContext =
-                        new AnnotationConfigApplicationContext(GemFireServerConfiguration.class);
-    
-                applicationContext.registerShutdownHook();
-    
-    
-            }
-    
-            @Bean("restrictionRegion")
-            public PartitionedRegionFactoryBean<String, Boolean> restrictionRegion(GemFireCache gemfireCache) {
-    
-    
-                PartitionedRegionFactoryBean<String, Boolean> restrictionsRegion =
-                        new PartitionedRegionFactoryBean<>();
-    
-                restrictionsRegion.setCache(gemfireCache);
-                restrictionsRegion.setClose(false);
-                restrictionsRegion.setPersistent(false);
-                return restrictionsRegion;
-            }
-    
-        }
-    
+```java
+@CacheServerApplication(name = "AutoConfiguredIntegrationTests", logLevel = GEMFIRE_LOG_LEVEL)
+@EnablePdx
+@EnableLocator
+public static class GemFireServerConfiguration {
+    public static void main(String[] args) {
+        AnnotationConfigApplicationContext applicationContext =
+                new AnnotationConfigApplicationContext(GemFireServerConfiguration.class);
+
+        applicationContext.registerShutdownHook();
+
+
+    }
+
+    @Bean("restrictionRegion")
+    public PartitionedRegionFactoryBean<String, Boolean> restrictionRegion(GemFireCache gemfireCache) {
+
+
+        PartitionedRegionFactoryBean<String, Boolean> restrictionsRegion =
+                new PartitionedRegionFactoryBean<>();
+
+        restrictionsRegion.setCache(gemfireCache);
+        restrictionsRegion.setClose(false);
+        restrictionsRegion.setPersistent(false);
+        return restrictionsRegion;
+    }
+
+}
+```    
 
 <p data-source-line="174">
   you can then run your service code as required.
 </p>
 
-<pre><code class="hljs">@Autowired
+```java
+@Autowired
     private RestrictionService restrictionService;
  
     @Test
@@ -256,7 +268,7 @@ categories:
 
         assertFalse((restrictionService.checkRestriction("notrestricted")));
     }</code></pre>
-
+```
 <p data-source-line="194">
   The full test code can be found here.
 </p>
