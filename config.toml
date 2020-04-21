@@ -1,7 +1,7 @@
 theme = "diary"
 title = "Ellin.com"
 baseURL = "https://ellin.com/"
-
+Copyright = "2020 Jeffrey Ellin"
 [[menu.main]]
 url = "/tags"
 name = "Tags"
