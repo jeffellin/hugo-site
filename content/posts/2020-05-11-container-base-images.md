@@ -64,7 +64,7 @@ Redhat recently released the Redhat Universal Base Image (UBI). At 72mb, this is
 One drawback to UBI is that available packages are limited to what is curated by Redhat for UBI.  In order to access non-UBI packages, a subscription is required, and you must run the container on a Redhat host O/S such as RHEL or Openshift.
 
 
-## Conclustion
+## Conclusion
 
 Which base image to choose is usually based on the specific scenario. 
 
