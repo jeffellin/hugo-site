@@ -23,6 +23,7 @@ copyright = "This is a customized copyright."
 
 [params]
 subtitle = "Not Very Interesting"
+googleSearchCode = "000805349785459965520:suxvsswp1fl"
 
 enableGitalk = false
 client_id = 'e147ed0583a8619e69d7'
