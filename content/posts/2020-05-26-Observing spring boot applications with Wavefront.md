@@ -47,10 +47,11 @@ There are a few things to add to your maven pom if you are adding the starter to
 	
 	```
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.3.0.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-parent</artifactId>
+	    <version>2.3.0.RELEASE</version>
+	    <relativePath/> 
+	    <!-- lookup parent from repository -->
 	</parent>
    ```
 
@@ -58,9 +59,9 @@ There are a few things to add to your maven pom if you are adding the starter to
 
 	```
 	<properties>
-		<java.version>1.8</java.version>
-		<spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
-		<wavefront.version>2.0.0</wavefront.version>
+	    <java.version>1.8</java.version>
+	    <spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
+	    <wavefront.version>2.0.0</wavefront.version>
 	</properties>
 	```
 
@@ -69,8 +70,8 @@ There are a few things to add to your maven pom if you are adding the starter to
    ```
    <repository>
 	    <id>spring-milestones</id>
-		<name>Spring Milestones</name>
-		<url>https://repo.spring.io/milestone</url>
+	    <name>Spring Milestones</name>
+	    <url>https://repo.spring.io/milestone</url>
 	</repository>
    ```
 
@@ -78,8 +79,8 @@ There are a few things to add to your maven pom if you are adding the starter to
    
 	```
 	<dependency>
-		<groupId>com.wavefront</groupId>
-		<artifactId>wavefront-spring-boot-starter</artifactId>
+	    <groupId>com.wavefront</groupId>
+	    <artifactId>wavefront-spring-boot-starter</artifactId>
 	</dependency>
 	```
  
