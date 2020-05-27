@@ -147,7 +147,7 @@ Adding `slueth` should result in tracing data being sent to Wavefront.
 
 One common scenario is calculating the 90th percentile of inbound or outbound requests.  Spring Actuator can send percentiles calculated on the client.  Doing this calculation client-side is generally not recommended because as you scale your application, there may be multiple nodes serving the same requests.  How can you rationalize the 90th percentile of 3 nodes into a single number?
 
-Instead, it is recommended that you T the raw data required to the analysis tool so that you can calculate the 90th percentile across all nodes. Spring Actuator can send histograms used for thee calculations,
+Instead, it is recommended that you send the raw data required to the analysis tool so that you can calculate the 90th percentile across all nodes. Spring Actuator can send histograms used for thee calculations,
 
 Histograms can be enabled on a per metric basis via Spring `application.properties` file.
 
