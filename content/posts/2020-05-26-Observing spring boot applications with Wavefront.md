@@ -7,6 +7,8 @@ description = "Wavefront And Spring Boot"
 draft = "true"
 +++
 
+
+
 # Observing spring boot applications with Wavefront.
 
 Wavefront is a Software as a Service (SaaS) product part of the new Tanzu portfolio of products from VMware.  It enables the monitoring of applications. Unlike Prometheus, the database is entirely managed for you.  While Prometheus may work well during the initial setup, it quickly can become overwhelmed by mountains of production data. 
@@ -29,7 +31,6 @@ Prerequisites
 
   * Spring Boot 2.3 or lat4er
   * Project Configured with Spring Boot Actuator
-
 
 If you are starting a new project, the Spring Initializer can be used to quickly generat4e the project scaffolding.  Under application dependencies, you can select "Wavefront." Selecting this dependency adds the proper dependencies to your project.with everything you need to start. 
 
@@ -98,7 +99,7 @@ There are a few things to add to your maven pom if you are adding the starter to
 
 The application `name` is the name of your application.  the `service` is the name of the component.  In this case hop2 is a microservice in part of a larger microservice architectured system.
 
-Once starting the app you should see a link to a wavefront account with a one time link.  This gives you access to a freemium wavefront account that you can use to view your metrics.
+Once you start the application, you should see a link to a one-time login to a wavefront account.  This link gives you access to a freemium wavefront account that you can use to view your metrics. 
 
 ```
 Connect to your Wavefront dashboard using this one-time use link:
@@ -136,9 +137,11 @@ Adding `slueth` should result in tracing data being sent to Wavefront.
 
 ## How to calculate the 90 Percentile within Wavefront.
 
-One common scenerio is calculating the 90th percentile of inbound requests.  Micrometer which Spring Cloud Slueth is based on can send percentile data calculated on the client side.  This is generally not reccomended because as you scale your application there may be multiple applications nodes serving the same requests.  How can you rationalize the 90th percentile of 3 nodes into a single number?
+One common scenario is calculating the 90th percentile of inbound or outbound requests.  Spring Actuator can send percentiles calculated on the client.  Doing this calculation client-side is generally not recommended because as you scale your application, there may be multiple nodes serving the same requests.  How can you rationalize the 90th percentile of 3 nodes into a single number?
 
-Instead, it is reccomended that you enable histograms to be sent to Wavefront.  This can be done via Spring `application.properties`  
+Instead, it is recommended that you send the raw data required to the analysis tool so that you can calculate the 90th percentile across all nodes. Spring Actuator can send histograms used for thee calculations,
+
+Histograms can be enabled on a per metric basis via Spring `application.properties` file.
 
 ```
 
@@ -156,8 +159,7 @@ Restart your app and navigate to Browse->Histograms
 
 ![Wavefront Histogramsy](/wp-content/uploads/2020/05/WavefronHistograms.png)
 
-
-The following query will return the 90th Percentile of the `http.server.requests` metric. 
+The following query returns the 90th percentile of all the incoming server requests..
 
 ```
 percentile(90,hs("http.server.requests.m", application=k8s-jellin))
