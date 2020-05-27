@@ -127,7 +127,7 @@ e.g. `http.server.requests.avg `
 
 ## Sending Spans
 
-Wavefront currently includes a default application dashboard.  Navigating to Applications->Application Status look for your application. Clicking here will reveal all services that are part of your application.
+Wavefront currently includes a default application dashboard.  Navigating to *Applications->Application Status* look for your application. Clicking here will reveal all services that are part of your application.
 
 ![Application Inventory](/wp-content/uploads/2020/05/ApplicationInventory.png)
 
@@ -161,7 +161,7 @@ management:
 
 This snippet enables histograms for the two metrics `http.server.requests` and `http.client.requests`
 
-Restart your app and navigate to Browse->Histograms
+Restart your app and navigate to *Browse->Histograms*
 
 ![Wavefront Histogramsy](/wp-content/uploads/2020/05/WavefronHistograms.png)
 
