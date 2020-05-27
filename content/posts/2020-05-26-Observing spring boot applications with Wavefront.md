@@ -36,7 +36,7 @@ The Actuator is built on a tool called [Micrometer](https://micrometer.io) a ven
 
 Prerequisites
 
-  * Spring Boot 2.3 or lat4er
+  * Spring Boot 2.3 or later
   * Project Configured with Spring Boot Actuator
 
 If you are starting a new project, the Spring Initializer can be used to quickly generat4e the project scaffolding.  Under application dependencies, you can select "Wavefront." Selecting this dependency adds the proper dependencies to your project.with everything you need to start. 
