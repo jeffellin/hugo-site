@@ -87,11 +87,11 @@ There are a few things to add to your maven pom if you are adding the starter to
 
     ```
 	<dependency>
-		<groupId>com.wavefront</groupId> 			 
-		<artifactId>wavefront-spring-boot-bom</artifactId>
-		<version>${wavefront.version}</version>
-		<type>pom</type>
-		<scope>import</scope>
+	    <groupId>com.wavefront</groupId>
+	    <artifactId>wavefront-spring-boot-bom</artifactId>
+	    <version>${wavefront.version}</version>
+	    <type>pom</type>
+	    <scope>import</scope>
 	</dependency>
 	```
 
@@ -100,8 +100,8 @@ There are a few things to add to your maven pom if you are adding the starter to
 	```
 	wavefront:
 	application:
-		name: jellin-demo
-		service: hop2
+	  name: jellin-demo
+	  service: hop2
 	```
 
 The application `name` is the name of your application.  the `service` is the name of the component.  In this case hop2 is a microservice in part of a larger microservice architectured system.
@@ -137,8 +137,8 @@ Adding `slueth` should result in tracing data being sent to Wavefront.
 
 ```
 <dependency>
-	<groupId>org.springframework.cloud</groupId>
-	<artifactId>spring-cloud-starter-sleuth</artifactId>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-sleuth</artifactId>
 </dependency>
 ```
 
