@@ -7,34 +7,33 @@ description = "Wavefront And Spring Boot"
 draft = "true"
 +++
 
-
-
 # Observing spring boot applications with Wavefront.
 
-Wavefront is a Software as a Service produc (SaaS) part of the new Tanzu portfolio of products from VMware.  It enables monitoring of applications. Unlike prometheus the datbase is entirely managed for you.  While prometheus may work well during initial setup it quickly can become overwelmed by mountains of production data. 
+Wavefront is a Software as a Service (SaaS) product part of the new Tanzu portfolio of products from VMware.  It enables the monitoring of applications. Unlike Prometheus, the database is entirely managed for you.  While Prometheus may work well during the initial setup, it quickly can become overwhelmed by mountains of production data. 
 
 Wavefront has several components.
 
 * The Wavefront SaaS Product
 * The Wavefront proxy
-* SDKs and Integrtions.
+* SDKs and Integrations.
 
-Working with integrations in wavefront gives plenty of visibility into container level metrics like memory or cpu.  In many cases it is worthwhile to look deeper. This is where instrumenting your appication can help.
+Working with integrations in Wavefront gives plenty of visibility into container level metrics like memory or CPU.. It has out of the box observability of Cloud Foundry, Kubernetes, Redis, and many more. 
 
-* Micrometer
-* Spring Boot Wavefront
-* The starter
+The best part about Wavefront is that there is now a freemium offering. This offering doesn't even require a sign-up.
 
+In many cases, it is worthwhile to look deeper. Instrumenting your application can help. With Spring Boot Actuator and Micrometer collecting internal metrics is simple as adding some project dependencies.  
 
-## How to setup your boot project
+## How to set up your boot project
 
-Prequisites
+Prerequisites
 
   * Spring Boot 2.3 or lat4er
+  * Project Configured with Spring Boot Actuator
 
-If you are startinga. new project the Spring Initializer can be used. Under application dependencies you can select "Wavefront". This will setup your skeleton project with everything you need to start.
 
-If you are adding the starter to your existing project there are a few things to add to your maven pom.
+If you are starting a new project, the Spring Initializer can be used to quickly generat4e the project scaffolding.  Under application dependencies, you can select "Wavefront." Selecting this dependency adds the proper dependencies to your project.with everything you need to start. 
+
+There are a few things to add to your maven pom if you are adding the starter to your existing project. The Spring Pet Clinic is an excellent place to start if you want to work with a fully built out application. 
 
 1. Check your spring version. You need at least version 2.3.0 or later.
 	
@@ -57,7 +56,7 @@ If you are adding the starter to your existing project there are a few things to
 	</properties>
 	```
 
-3. Ensure your maven pom uses the spring milestone repository. If you are using a corporate maven repository make sure the jars you need are installed there or that the corporate repository mirrors the spring milestone repository.
+3. Ensure your maven pom uses the spring milestone repository. If you are using a corporate maven repository, make sure the jars you need are installed or that the corporate repository mirrors the Spring milestone repository.
    
    ```
    <repository>
@@ -135,11 +134,11 @@ Adding `slueth` should result in tracing data being sent to Wavefront.
 </dependency>
 ```
 
-## How to calculate the 90 Percentile within wavefront.
+## How to calculate the 90 Percentile within Wavefront.
 
 One common scenerio is calculating the 90th percentile of inbound requests.  Micrometer which Spring Cloud Slueth is based on can send percentile data calculated on the client side.  This is generally not reccomended because as you scale your application there may be multiple applications nodes serving the same requests.  How can you rationalize the 90th percentile of 3 nodes into a single number?
 
-Instead, it is reccomended that you enable histograms to be sent to wavefront.  This can be done via Spring `application.properties`  
+Instead, it is reccomended that you enable histograms to be sent to Wavefront.  This can be done via Spring `application.properties`  
 
 ```
 
