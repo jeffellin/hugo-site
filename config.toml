@@ -1,3 +1,4 @@
+disqusShortname = "www-ellin-com"
 theme = "diary"
 title = "Ellin.com"
 baseURL = "https://ellin.com/"
@@ -6,6 +7,9 @@ Copyright = "2020 Jeffrey Ellin"
 url = "/tags"
 name = "Tags"
 weight = 3
+
+
+
 
 
 [[menu.main]]

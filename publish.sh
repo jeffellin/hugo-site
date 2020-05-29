@@ -1,3 +1,3 @@
 #!/bin/bash
-hugo -Ds ""
+hugo -s ""
 rsync -avz public/ ubuntu@ellin.com:/home/hugo-site

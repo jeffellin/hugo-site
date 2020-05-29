@@ -4,7 +4,7 @@ date = 2020-05-26T13:35:15-04:00
 tags = ["observability","spring"]
 featured_image = ""
 description = "Wavefront And Spring Boot"
-draft = "true"
+draft = "false"
 +++
 
 
@@ -39,7 +39,7 @@ Prerequisites
   * Spring Boot 2.3 or later
   * Project Configured with Spring Boot Actuator
 
-If you are starting a new project, the Spring Initializer can be used to quickly generat4e the project scaffolding.  Under application dependencies, you can select "Wavefront." Selecting this dependency adds the proper dependencies to your project.with everything you need to start. 
+If you are starting a new project, the Spring Initializer can be used to quickly generate the project scaffolding.  Under application dependencies, you can select "Wavefront." Selecting this dependency adds the proper dependencies to your project.with everything you need to start. 
 
 There are a few things to add to your maven pom if you are adding the starter to your existing project. The Spring Pet Clinic is an excellent place to start if you want to work with a fully built out application. 
 
@@ -164,7 +164,7 @@ This snippet enables histograms for the two metrics `http.server.requests` and `
 
 Restart your app and navigate to *Browse->Histograms*
 
-![Wavefront Histogramsy](/wp-content/uploads/2020/05/WavefronHistograms.png)
+![Wavefront Histogramsy](/wp-content/uploads/2020/05/WavefrontHistograms.png)
 
 The following query returns the 90th percentile of all the incoming server requests..
 
