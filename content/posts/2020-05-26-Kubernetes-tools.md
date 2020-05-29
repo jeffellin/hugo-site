@@ -37,7 +37,7 @@ draft = "false"
 The one tool in the suite that I find indispensable is *ytt*. This tool allows easy templating of Kubernetes Yaml. This tool comes in handy for replacing image versions in manifests before applying deployment changes.
 
 
-## K8s
+## K9s
 
 If you are getting tired of the CLI, give [K9s](https://k9scli.io
 ) a try. It's a terminal-based UI to Kubernetes. You can view the status of all Kubernetes Objects, view logs, shell into containers and much more. 
