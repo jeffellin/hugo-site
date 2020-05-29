@@ -48,7 +48,7 @@ Looking for something similar but browser-based? Give [Octant](https://github.co
 
 ## Visual Studio code
 
-Editing YAML is a pain. [VS Code](ttps://code.visualstudio.com) is an extremely competent text editor from Microsoft. It has an extensive collection of plugins and support for Git source control integration. 
+Editing YAML is a pain. [VS Code](https://code.visualstudio.com) is an extremely competent text editor from Microsoft. It has an extensive collection of plugins and support for Git source control integration. 
 
 Download the base package, and be sure to install the following plugins.
 
