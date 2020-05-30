@@ -14,8 +14,11 @@ publicize_linkedin_url:
   - 'https://www.linkedin.com/updates?discuss=&scope=20835048&stype=M&topic=6073627541657174016&type=U&a=Zez8'
 tags:
   - docker
-  - Uncategorized
 ---
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
+
 ## What is Docker Machine?
 
 Docker Machine is a relatively new addition to the Docker toolbox that allows you to create docker hosts on your own computer, in your data center or in the cloud.

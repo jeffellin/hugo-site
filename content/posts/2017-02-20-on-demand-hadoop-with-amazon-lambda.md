@@ -14,6 +14,9 @@ tags:
   - hive
   - qubole
 ---
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
 Serverless architecture allows you to execute code without requiring the traditional cost of compute resources. Each component of your application exists independently in the cloud and only consumes resources when they are being executed. They can be scaled easily and due to their ephemeral nature you only pay for what you use. Due to the way they are deployed they discourage the use of bad habits when implementing microservice architectures.
 
 AWS&#8217;s Lambdas are an ideal fit for implementing a serverless architecture. They are single units of functionality that are deployed to the cloud and are executed in response to events that occur inside the cloud.

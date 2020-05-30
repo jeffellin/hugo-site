@@ -12,8 +12,11 @@ publicize_linkedin_url:
   - 'https://www.linkedin.com/updates?discuss=&scope=20835048&stype=M&topic=5920623697109999616&type=U&a=z-3d'
 tags:
   - GemFire
-  - Uncategorized
 ---
+
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
 Quick Example of using Spring Integration to move data around between GemFire regions. More detailed explanation to follow.
 
 # See the code on GitHub

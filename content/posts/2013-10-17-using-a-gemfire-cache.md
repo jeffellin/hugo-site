@@ -10,7 +10,6 @@ original_post_id:
   - "23"
 tags:
   - GemFire
-  - Uncategorized
 ---
 
 >This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.

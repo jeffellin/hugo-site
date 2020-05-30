@@ -10,7 +10,10 @@ tags:
   - aws
   - docker
 ---
-In the past I have written pots about using infrastructure as code to deploy your web applications in a repeatable and controllable fashion using the concept of infrastructure as code. I will walk you through step by step in using Terraform to create your highly redundant and scalable website.
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
+In the past I have written posts about using infrastructure as code to deploy your web applications in a repeatable and controllable fashion using the concept of infrastructure as code. I will walk you through step by step in using Terraform to create your highly redundant and scalable website.
 
 I will focus on techniques that illustrate AWS best practices and the use of Terraform. I will not focus on optimizing WordPress itself.  There are numerous plugins and hacks that you can do to WordPress to improve things even further but that is beyond the scope of this guide.
 

@@ -11,4 +11,6 @@ tags:
 ---
 > How to profile apps on Pivotal Cloud Foundry. VisualVM to the rescue!
 
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
 Source: _[Diagnosing performance issues with Java legacy apps on Pivotal Cloud Foundry · Pivotal Engineering Journal](http://engineering.pivotal.io/post/profiling_cpu_on_pcf/)_

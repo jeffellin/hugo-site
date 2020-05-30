@@ -13,6 +13,9 @@ publicize_linkedin_url:
 tags:
   - spring
 ---
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
 As a counterpoint to the last few posts where I show how to adapt DropWizard to work with Spring tech this post will focus on getting a popular feature from DropWizard working on Spring Boot.
 
 Spring Boot is a framework to easily create Spring applications that &#8220;just run.&#8221; It is comprehensive framework for application development and provides an opinionated list of dependencies and default configuration. The idea is to provide enough sane defaults that a new developer can get their application running in a few minutes. However it is clever enough to recognize when a developer wants to use a framework not included in the defaults and backs off its automatic configuration.

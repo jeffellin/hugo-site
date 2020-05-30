@@ -11,6 +11,11 @@ tags:
   - IoT
   - spark
 ---
+
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
+
 The Internet of Things (IoT) is increasingly becoming an important topic in the world of application development. This is because these devices are constantly sending a high velocity of data that needs to be processed and analyzed.  Amazon Kinesis and Amazon IoT are a perfect pair for receiving and analyzing this data. Spark Streaming can be used to process the data as it arrives.
 
 Today we will be looking at Amazon IoT, Kinesis and Spark and build a streaming pipeline.

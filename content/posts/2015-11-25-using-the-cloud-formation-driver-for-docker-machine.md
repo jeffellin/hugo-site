@@ -12,8 +12,11 @@ publicize_linkedin_url:
   - 'https://www.linkedin.com/updates?discuss=&scope=20835048&stype=M&topic=6075480901310050304&type=U&a=HXTJ'
 tags:
   - docker
-  - Uncategorized
 ---
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
+
 # Using the Cloud Formation Driver for Docker Machine
 
 In my last post I discussed a new cloud formation driver that allows you to use docker-machine to initiate cloud formation scripts. In this post I will show you how to use it.

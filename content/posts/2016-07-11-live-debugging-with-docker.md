@@ -14,6 +14,10 @@ tags:
   - docker
   - spring
 ---
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
+
 <article class="markdown-body"> 
 
 ## Live Debugging with Docker {#live-debugging-with-docker}

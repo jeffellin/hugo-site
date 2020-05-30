@@ -10,7 +10,10 @@ tags:
   - aws
   - docker
 ---
-In the past I have written pots about using infrastructure as code to deploy your web applications in a repeatable and controllable fashion using the concept of infrastructure as code. Today I would like to give a concrete example of how this is done using word press deployed to AWS.
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
+In the past I have written posts about using infrastructure as code to deploy your web applications in a repeatable and controllable fashion using the concept of infrastructure as code. Today I would like to give a concrete example of how this is done using word press deployed to AWS.
 
 In the first section I will illustrate how to use Terraform to create the networking components required to support the environment.
 

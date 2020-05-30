@@ -11,6 +11,8 @@ tags:
   - concourse
 ---
 
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
 One aspect of creating good CI/CD pipelines is the management of passwords and other credentials required for deployment.
 
 <p data-source-line="5">

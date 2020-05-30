@@ -9,6 +9,10 @@ permalink: /2018/03/16/secrets-and-configmaps/
 tags:
   - kubernetes
 ---
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
+
 <span style="font-size: 16px;">One of the tenants of </span><a style="font-size: 16px;" href="https://12factor.net/">Twelve Factor</a> <span style="font-size: 16px;">application design is the concept of external externalizing configuration and secrets. In the past, you may have had your configuration externalized to a resource bundle or bundled directly into your application artifact. The problem with externalized resource bundles is that they tend to drift over time. Bundling the secret into the application artifact is even worse as it increases the barrier to regularly rotate the secret since you must rebuild and redeploy the application. While this can be automated in a build pipeline there is a better way.</span>
 
 Docker decouple configuration from the deployable container using environment variables.

@@ -9,6 +9,10 @@ permalink: /2015/09/23/docker-tricks-to-remember/
 tags:
   - Uncategorized
 ---
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
+
 Chances are if you have been working with docker for a while you may have noticed that removing containers does not free up the disk space associated with that container.  When removing the container the -v flag can be used to remove the volumes associated with that container.
 
 [code language=&#8221;bash&#8221;]docker rm -v webapp[/code]

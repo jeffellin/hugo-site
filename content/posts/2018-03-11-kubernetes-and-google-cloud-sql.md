@@ -10,6 +10,9 @@ tags:
   - gcp
   - kubernetes
 ---
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
 Cloud SQL is a hosted SQL database similar to Amazon RDS for either Mysql or Postgres databases. It supports automated management including backup and deployment.  Since the database is created via the the GCP console it is very easy to create a scalable  and reliable database.
 
 <img class="aligncenter size-large wp-image-606" src="/wp-content/uploads/2018/03/Screenshot-2018-03-10-at-08.10.57-PM-1024x791.png" alt="" width="1024" height="791" srcset="/wp-content/uploads/2018/03/Screenshot-2018-03-10-at-08.10.57-PM-1024x791.png 1024w, /wp-content/uploads/2018/03/Screenshot-2018-03-10-at-08.10.57-PM-300x232.png 300w, /wp-content/uploads/2018/03/Screenshot-2018-03-10-at-08.10.57-PM-768x593.png 768w, /wp-content/uploads/2018/03/Screenshot-2018-03-10-at-08.10.57-PM.png 1554w" sizes="(max-width: 1024px) 100vw, 1024px" /> 

@@ -10,6 +10,10 @@ tags:
   - GemFire
   - spring
 ---
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
+
 The following article will help the Spring developer complete the following steps.
 
 ## This article has been updated. Latest content is <a href=/2019/04/10/update-spring-developers-guide-to-starting-with-pivotal-cloud-cache-and-gemfire/>here</a>

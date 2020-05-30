@@ -9,6 +9,9 @@ permalink: /2018/03/12/the-case-for-boosting-enterprise-software-startups-with-s
 tags:
   - external
 ---
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
 [<img class="alignnone size-full" src="/wp-content/uploads/2018/03/moneywaiter.jpg" alt="" />](https://beta.techcrunch.com/2018/03/11/the-case-for-boosting-enterprise-software-startups-with-services/)
 
 > One of the truisms of software business strategy is that services is bad business; heck, we’ve also said it. The reason, put bluntly, is that it’s a business with low margins and is not as scalable…

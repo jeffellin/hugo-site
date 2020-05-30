@@ -13,6 +13,11 @@ publicize_linkedin_url:
 tags:
   - Uncategorized
 ---
+
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
+
 In my last two posts I discussed using GemFire as a data source for Spring Integration. In both of these examples the client application receives events from GemFire as they occur.
 
 If the client is offline for any reason it will miss these messages. If reliable event delivery is crucial to your application GemFire Durable Client/Server communication can be enabled.

@@ -13,8 +13,10 @@ publicize_linkedin_url:
 tags:
   - docker
   - Go
-  - Uncategorized
 ---
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
 Recently I dived into creating a <a href="https://github.com/docker/machine/pull/1905" target="_blank">pull request</a> for docker-machine.  Unfortunately when creating EC2 instances docker-machine did not provide an option for specifying an EBS optimized instance.  EBS Optimized instances provide much better disk i/o performance to an EBS Volume.
 
 Downloading and following the <a href="https://github.com/docker/machine/blob/master/CONTRIBUTING.md" target="_blank">build directions </a>were fairly straightforward.  A docker container is provided with a complete GO dev environment to compile the binary.

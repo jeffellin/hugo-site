@@ -10,6 +10,10 @@ tags:
   - aws
   - docker
 ---
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
+
 In order to cope with increased demand we need a method to add additional capacity when required.  To do this we can utilize cloud watch alarms to trigger our autoscaling group.  By having additional nodes in the web tier we can increase our capacity.  When the demand tapers off we can remove nodes. We can also use Cloud Front to distribute our images, javascript and css to edge nodes that are closer to the users.
 
 <img class="aligncenter size-full wp-image-438" src="/wp-content/uploads/2017/08/elastic.jpg" alt="" width="841" height="831" srcset="/wp-content/uploads/2017/08/elastic.jpg 841w, /wp-content/uploads/2017/08/elastic-300x296.jpg 300w, /wp-content/uploads/2017/08/elastic-768x759.jpg 768w" sizes="(max-width: 841px) 100vw, 841px" /> 

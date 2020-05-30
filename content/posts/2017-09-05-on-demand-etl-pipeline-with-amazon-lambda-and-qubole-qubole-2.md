@@ -9,6 +9,10 @@ permalink: /2017/09/05/on-demand-etl-pipeline-with-amazon-lambda-and-qubole-qubo
 tags:
   - external
 ---
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
+
 > Co-authored by Jeffrey Ellin, Solutions Architect, Qubole. Serverless architecture allows you to execute code without requiring the traditional cost of compute resources. Each component of your…
 
 Source: _[On-Demand ETL Pipeline with Amazon Lambda And Qubole | Qubole](https://www.qubole.com/blog/on-demand-etl-pipeline-with-amazon-lambda-and-qubole/)_

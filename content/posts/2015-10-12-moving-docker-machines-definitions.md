@@ -12,8 +12,11 @@ publicize_linkedin_url:
   - 'https://www.linkedin.com/updates?discuss=&scope=20835048&stype=M&topic=6059461587591315458&type=U&a=fSgX'
 tags:
   - docker
-  - Uncategorized
 ---
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
+
 [Docker Machine](https://docs.docker.com/machine/) is a new tool from Docker that allows you quickly create Docker hosts on your local machine or a cloud provider such as EC2 or Google Compute.  During the machine creation process the docker machine library creates a new ssh key and ssl certificate to interact with this machine via the docker client tools.
 
 This is all great and allows a developer to quickly create a new cloud instance in minutes.  However if you want to share the docker machine with coworker things become a little murky.

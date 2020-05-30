@@ -14,6 +14,11 @@ tags:
   - GemFire
   - spring
 ---
+
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
+
 If you haven&#8217;t tried Spring boot yet,  you are really missing out.  Spring boot provides an incredibly easy way to get started with building a new Spring based application.
 
 Normally when building a new Spring application you need to decide on a myriad of dependencies and their versions.  Spring Boot simplifies that process by providing a curated set of jars and configurations to get a new project off the ground quickly.

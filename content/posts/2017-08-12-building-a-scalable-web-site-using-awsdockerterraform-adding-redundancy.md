@@ -10,6 +10,9 @@ tags:
   - aws
   - docker
 ---
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
 In my last post I showed how to use Terraform to create an EC2 instance as well as a RDS to host WordPress.  One problem with this setup is that we only have one host inside a single availability zone.  The RDS already uses a multi AZ deployment so if the availability zone fails we will lose access to our website. To solve this we can use an Autoscaling Group to ensure that we have at least 2 instances running in separate availability zones.
 
 <img class="aligncenter size-full wp-image-424" src="/wp-content/uploads/2017/08/elb-1.jpg" alt="" width="841" height="801" srcset="/wp-content/uploads/2017/08/elb-1.jpg 841w, /wp-content/uploads/2017/08/elb-1-300x286.jpg 300w, /wp-content/uploads/2017/08/elb-1-768x731.jpg 768w" sizes="(max-width: 841px) 100vw, 841px" /> 

@@ -10,12 +10,15 @@ geo_public:
   - "0"
 publicize_linkedin_url:
   - 'https://www.linkedin.com/updates?discuss=&scope=20835048&stype=M&topic=6120262983227629568&type=U&a=kMyj'
-tags:
-  - spring
+
 tags:
   - dropwizard
   - spring
 ---
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
+
 One of my favorite Spring sub projects is Spring Integration.  Spring integration is an implementation of the [Enterprise Integration Patterns](http://www.enterpriseintegrationpatterns.com/).
 
 I can&#8217;t say it much better than the Spring team so I will quote the following from the [Spring Integration QuickStart](http://projects.spring.io/spring-integration/#quick-start)

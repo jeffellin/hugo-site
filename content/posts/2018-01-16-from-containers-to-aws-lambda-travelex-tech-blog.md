@@ -13,4 +13,6 @@ tags:
 ---
 > One Service at a Time
 
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
 Source: _[From Containers to AWS Lambda – Travelex Tech Blog](https://blog.travelex.io/from-containers-to-aws-lambda-23f712f9e925)_

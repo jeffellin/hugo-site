@@ -11,6 +11,10 @@ tags:
   - IoT
   - spark
 ---
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
+
 In my last post, [IoT with Amazon Kinesis and Spark Streaming](/2017/08/20/iot-with-amazon-kinesis-and-spark-streaming/) I discussed connecting Spark streaming with Amazon IoT and Kinesis.  Today I would like to show how to add Apache Zeppelin into the mix.
 
 <img class="aligncenter size-full wp-image-504" src="/wp-content/uploads/2017/08/kinesis-2.jpg" alt="" width="618" height="297" srcset="/wp-content/uploads/2017/08/kinesis-2.jpg 618w, /wp-content/uploads/2017/08/kinesis-2-300x144.jpg 300w" sizes="(max-width: 618px) 100vw, 618px" /> Apache Zeppelin is a web based tool for running notebooks. It allows Data Scientists easy access to running Big Data tools such as Spark and Hive. It also provides an integration point for using javascript visualization tools such as D3 and Plotly via its Angular interpreter. In addition Zeppelin has some built in visualizations that can be leveraged for quick and dirty dashboards.

@@ -12,8 +12,11 @@ tags:
   - Uncategorized
 tags:
   - GemFire
-  - springxd
+  - spring
 ---
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
 [SpringXD](http://projects.spring.io/spring-xd/ "Srping XD") is a new project which simplifies the development of Big Data Applications. SpringXD&#8217;s ability to stream data between two different modules. In this example, we will use an HTTP module as a data source and a GemFire module as a data sink.
 
 One Component of Big Data Applications is Pivotal&#8217;s GemFire. SpringXD has some built-in connections to GemFire which allow you to get up and running quickly.

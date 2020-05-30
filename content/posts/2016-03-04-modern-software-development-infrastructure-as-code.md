@@ -10,8 +10,10 @@ geo_public:
   - "0"
 tags:
   - docker
-  - Uncategorized
 ---
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
 <h1 style="text-align:center;">
   Modern Software Development
 </h1>

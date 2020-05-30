@@ -13,11 +13,10 @@ publicize_linkedin_url:
 tags:
   - GemFire
   - spring
-  - Uncategorized
-tags:
-  - GemFire
-  - spring
 ---
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
 Spring Integration is an appication integration framework that builds upon the core Spring framework. It allows for a high level of abstraction between the actual messaging infrastructure and the implementation logic. This allows the devloper to focus on adding value via buesiness logic without having to implement boiler plate code.
 
 Spring Integration provides a number of adapters that can be used by a developer out of the box. One such out of the box adapter is for connections to GemFire.

@@ -11,6 +11,10 @@ tags:
   - gcp
   - kubernetes
 ---
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
+
 ### WordPress on Kubernetes
 
 Recently I posted about creating a highly available WordPress deployment using Amazon Web Services. The focus was using Terraform and Docker to automate the deployment. With the release of [Pivotal Container Service](https://pivotal.io/platform/pivotal-container-service) I thought I would explore what it would take to get a similar setup running on GCP.  This post will focus more on using Kubernetes to deploy your containers.

@@ -9,6 +9,9 @@ permalink: /2018/01/26/versioning-a-microservice-system-with-git-opencredo/
 tags:
   - external
 ---
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
 > Motivation Microservice-style software architectures have many benefits: loose coupling, independent scalability, localised failures, facilitating the usage of polyglot data persistence tools or multiple programming languages. However, they also introduce other […]
 
 Source: _[Versioning a Microservice System with git &#8211; OpenCredo](https://opencredo.com/versioning-a-microservice-system-with-git/)_

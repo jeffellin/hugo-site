@@ -6,6 +6,9 @@ featured_image = ""
 description = "One aspect of creating good CI/CD pipelines is the management of passwords and other credentials required for deployment. A typical concourse pipeline will poll for updates in a git repo, do a build and then push the results to a PaaS such as Kubernetes or Cloud Foundry."
 draft = "false"
 +++
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
 <meta charset="utf-8" />
 
 <link rel="stylesheet" href="https://unpkg.com/markdown-core@1.1.0/dist/index.bundle.css" />

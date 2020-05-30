@@ -13,12 +13,12 @@ publicize_linkedin_url:
 tags:
   - GemFire
   - spring
-  - Uncategorized
-tags:
-  - GemFire
-  - spring
   - spring-integration
 ---
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
+
 In my [last post](2014/09/21/connecting-spring-integration-to-gemfire/) we used a Continuous Query as a data source for Spring Integration. Another option to use a GemFire&#8217;s Event messaging.
 
 This example will use a Client/Server topology. The client cache will be configured to respond to cache events on the remote server and feed them into Spring Integration.

@@ -11,6 +11,7 @@ tags:
   - geode
 ---
 </p> 
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
 
 <p data-source-line="1">
   The following article is an update to an older post which was based on older versions of Spring/Spring Data Geode.&nbsp; In this article, you will learn how to complete the following steps.

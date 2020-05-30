@@ -10,6 +10,8 @@ tags:
   - spring
   - til
 ---
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
 ## What it is
 
 The [Spring Initializer](http://start.spring.io) is one of the first places to go when starting a new Spring project as it greatly simplifies the process of starting a new Spring project.<figure>

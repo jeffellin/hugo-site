@@ -10,6 +10,9 @@ tags:
   - aws
   - docker
 ---
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
 In my last [post](/2017/08/10/building-a-scalabale-web-site-using-awsdockerterraform/) I talked about using Terraform to use infrastructure as code principles to create a VPC environment to host a WordPress site. In this article we will deploy an RDS and an EC2 instance to host WordPress.
 
 <img class="aligncenter wp-image-414 size-full" src="/wp-content/uploads/2017/08/rds.jpg" alt="" width="801" height="801" srcset="/wp-content/uploads/2017/08/rds.jpg 801w, /wp-content/uploads/2017/08/rds-150x150.jpg 150w, /wp-content/uploads/2017/08/rds-300x300.jpg 300w, /wp-content/uploads/2017/08/rds-768x768.jpg 768w, /wp-content/uploads/2017/08/rds-160x160.jpg 160w, /wp-content/uploads/2017/08/rds-320x320.jpg 320w" sizes="(max-width: 801px) 100vw, 801px" /> 

@@ -11,4 +11,7 @@ tags:
 ---
 > Demonstrating Event Sourcing with various methods using Kafka, RabbitMQ and JPA
 
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
+
 Source: _[Event Sourcing with Kafka, RabbitMQ and JPA · Pivotal Engineering Journal](http://engineering.pivotal.io/post/event-source-kafka-rabbit-jpa/)_
