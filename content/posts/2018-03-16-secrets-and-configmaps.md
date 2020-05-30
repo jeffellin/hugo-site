@@ -10,27 +10,25 @@ tags:
   - kubernetes
 ---
 
->This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
-
-
-<span style="font-size: 16px;">One of the tenants of </span><a style="font-size: 16px;" href="https://12factor.net/">Twelve Factor</a> <span style="font-size: 16px;">application design is the concept of external externalizing configuration and secrets. In the past, you may have had your configuration externalized to a resource bundle or bundled directly into your application artifact. The problem with externalized resource bundles is that they tend to drift over time. Bundling the secret into the application artifact is even worse as it increases the barrier to regularly rotate the secret since you must rebuild and redeploy the application. While this can be automated in a build pipeline there is a better way.</span>
+One of the tenants of [Twelve Factor](https://12factor.net/) application design is the concept of externalizing configuration and secrets. In the past, you may have had your configuration externalized to a resource bundle or bundled directly into your application artifact. The problem with externalized resource bundles is that they tend to drift over time. Bundling the secret into the application artifact is even worse as it increases the barrier to regularly rotate the secret since you must rebuild and redeploy the application. While this can be automated in a build pipeline there is a better way.
 
 Docker decouple configuration from the deployable container using environment variables.
 
-    spec:
-      containers:
-      - image: mysql:5.6
-        name: mysql
-        env:
-        - name: MYSQL_ROOT_PASSWORD
-          value: "helloworld!"
-        ports:
-        - containerPort: 3306
-          name: mysql
-        volumeMounts:
-        - name: mysql-persistent-storage
-          mountPath: /var/lib/mysql
-    
+```yaml
+spec:
+  containers:
+  - image: mysql:5.6
+    name: mysql
+    env:
+    - name: MYSQL_ROOT_PASSWORD
+      value: "helloworld!"
+    ports:
+    - containerPort: 3306
+      name: mysql
+    volumeMounts:
+    - name: mysql-persistent-storage
+      mountPath: /var/lib/mysql
+```    
 
 Kubernetes provides a few ways to pass an environment variable to the running container.
 
@@ -40,13 +38,14 @@ The above spec for the MySQL container passes in the desired root password for t
 
 If you look closely at my last [kubernetes](/2018/03/11/kubernetes-and-google-cloud-sql/) post I made a small change to the password.
 
-    env:
-    - name: MYSQL_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: cloudsql-db-credentials
-                  key: password
-    
+```yaml
+env:
+- name: MYSQL_ROOT_PASSWORD
+  valueFrom:
+    secretKeyRef:
+      name: cloudsql-db-credentials
+      key: password
+```    
 
 The above YAML decouples the credential further from the deployment configuration. Kubernetes allows us to set this credential using `kubectl`
 
@@ -58,22 +57,25 @@ If we have different passwords for different environments such as dev and produc
 
 `kubectl` can also be used to import files that are passed to the container. This can be handy for things like SSL certificates or resource bundles with sensitive information within them.
 
-    kubectl create secret generic cloudsql-instance-credentials \
-        --from-file=credentials.json=\Users\jellin\credentials.json
-    
+```baah
+
+kubectl create secret generic cloudsql-instance-credentials \
+--from-file=credentials.json=\Users\jellin\credentials.json
+```    
 
 The `credentials.json` file referenced above contains the SSL certificate used for the Cloud SQL Proxy. It can be referenced in the Yaml as show below.
 
-    name: cloudsql-proxy
-              image: gcr.io/cloudsql-docker/gce-proxy:1.11
-              command: ["/cloud_sql_proxy",
-                        "-instances=labs-jellin:us-central1:wordpress=tcp:3306",
-                        "-credential_file=/secrets/cloudsql/jellin-e4ccff43f21b.json"]
-              volumeMounts:
-                - name: cloudsql-instance-credentials
-                  mountPath: /secrets/cloudsql
-                  readOnly: true
-    
+```yaml
+name: cloudsql-proxy
+image: gcr.io/cloudsql-docker/gce-proxy:1.11
+command: ["/cloud_sql_proxy",
+          "-instances=labs-jellin:us-central1:wordpress=tcp:3306",
+          "-credential_file=/secrets/cloudsql/jellin-e4ccff43f21b.json"]
+volumeMounts:
+  - name: cloudsql-instance-credentials
+    mountPath: /secrets/cloudsql
+    readOnly: true
+```   
 
 The credential file is extracted to /secrets/cloudsql via a volumeMount. The file can then be read by the container at startup as if it existed on the filesystem in that directory.
 
@@ -85,16 +87,17 @@ Another handy feature of Kubernetes is Configuration Maps. ConfigMaps are combin
 
 ConfigMaps can be defined directly inside the YAML definition.
 
-    apiVersion: v1
-    data:
-      my-config.txt: |
-        # This is a sample config file that I might use to configure an application
-        parameter1 = value1
-        parameter2 = value2
-    kind: ConfigMap
-    metadata:
-      name: my-config
-    
+```yaml
+apiVersion: v1
+data:
+  my-config.txt: |
+    # This is a sample config file that I might use to configure an application
+    parameter1 = value1
+    parameter2 = value2
+kind: ConfigMap
+metadata:
+  name: my-config
+```   
 
 Config Maps can also be created using `kubectl`
 
@@ -104,17 +107,20 @@ Config Maps can also be created using `kubectl`
 
 It is also possible to add bare values which can be read into the container environment.
 
-    kubectl create configmap my-config \
-      --from-literal=some-param=foo
-    
+```bash
+kubectl create configmap my-config \
+    --from-literal=some-param=foo
+ ```   
 
 #### Using ConfigMaps
 
 The real magic happens when you try and use the values from the ConfigMap. Kubernetes provides two common ways to use a Config Map.
 
-  * _Filesystem_ &#8211;  
+  * _Filesystem_
+  
     If you have loaded a ConfigMap using a file. This file can then be placed mounted on the container file system. The application can then read the file directly.
 
+    ```yaml
     containers:
         - name: test-container
           image: gcr.io/jeffellin/some-springboot-app
@@ -125,24 +131,28 @@ The real magic happens when you try and use the values from the ConfigMap. Kuber
         - name: config-volume
           configMap:
             name: my-config  
-    
+    ```
 
 In the above example the `my-config.properties` file loaded previously is extracted to /config
 
-  * _Environment variable_ &#8211; The container environment can also be set via a ConfigMap
+  * _Environment variable
+  
+  The container environment can also be set via a ConfigMap
 
-      - name: test-container
-          image: gcr.io/jeffellin/some-springboot-app
-          imagePullPolicy: Always
-          env:
-            - name: ENV_VAR
-              valueFrom:
-                configMapKeyRef:
-                  name: my-config
-                  key: some-param
-                 volumeMounts:
-            - name: config-volume
-              mountPath: /config
+   ```yaml
+    - name: test-container
+        image: gcr.io/jeffellin/some-springboot-app
+        imagePullPolicy: Always
+        env:
+          - name: ENV_VAR
+            valueFrom:
+              configMapKeyRef:
+                name: my-config
+                key: some-param
+                volumeMounts:
+          - name: config-volume
+            mountPath: /config
+    ```
     
 
 In the above example the previously set value for `some-param` is passed to the environment variable `ENV_VAR` as `foo`
