@@ -34,6 +34,8 @@ The Actuator is built on a tool called [Micrometer](https://micrometer.io) a ven
 
 ## How to set up your boot project
 
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
 Prerequisites
 
   * Spring Boot 2.3 or later

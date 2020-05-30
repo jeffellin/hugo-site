@@ -10,12 +10,12 @@ original_post_id:
   - "21"
 tags:
   - Source Control
-  - Uncategorized
 tags:
   - scm
   - svn
   - unix
 ---
+
 Sometimes I find myself needing to remove all the hidden .svn directories. Here is the command if you are a Mac/*nix machine. 
 
 <pre>find . -type d -name .svn -exec rm -rf {} ;

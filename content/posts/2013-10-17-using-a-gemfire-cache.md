@@ -12,6 +12,9 @@ tags:
   - GemFire
   - Uncategorized
 ---
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
 Now that you have GemFire installed how doe you use it? The simplest use case is to store an object into the cache with a put and get operation using a key and value pair. The object must be serializable and the key must result in a unique object based on its hash code.
 
 Before we can store anything in the cache we need an object.

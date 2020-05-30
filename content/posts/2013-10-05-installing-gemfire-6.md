@@ -14,6 +14,9 @@ tags:
 tags:
   - GemFire
 ---
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
 While it isn&#8217;t the latest and greatest recently I had to install GemFire 6 on my Mac in order to test some development code. Some day I will write a post that explains what GemFire is and what its used for, but for now I will provide the steps to get a simple stand alone cluster up and running.
 
 Installing GemFire 6 is a rather simple process.

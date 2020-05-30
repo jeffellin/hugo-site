@@ -15,6 +15,10 @@ tags:
   - AST
   - groovy
 ---
+
+>This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+
+
 We are all used to the plain old java object (POJO), but what do we know about the plain old groovy object (POGO). We all know that Groovy brings convenience to the Java langauage, but what does it it bring us when dealing with standard objects?
 
 Consider the following POJO
