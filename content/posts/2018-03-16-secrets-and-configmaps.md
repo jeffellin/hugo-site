@@ -57,11 +57,11 @@ If we have different passwords for different environments such as dev and produc
 
 `kubectl` can also be used to import files that are passed to the container. This can be handy for things like SSL certificates or resource bundles with sensitive information within them.
 
-```baah
 
-kubectl create secret generic cloudsql-instance-credentials \
---from-file=credentials.json=\Users\jellin\credentials.json
-```    
+
+    kubectl create secret generic cloudsql-instance-credentials \
+      --from-file=credentials.json=\Users\jellin\credentials.json
+    
 
 The `credentials.json` file referenced above contains the SSL certificate used for the Cloud SQL Proxy. It can be referenced in the Yaml as show below.
 
@@ -107,10 +107,10 @@ Config Maps can also be created using `kubectl`
 
 It is also possible to add bare values which can be read into the container environment.
 
-```bash
-kubectl create configmap my-config \
-    --from-literal=some-param=foo
- ```   
+
+     kubectl create configmap my-config \
+      --from-literal=some-param=foo
+    
 
 #### Using ConfigMaps
 
@@ -135,27 +135,25 @@ The real magic happens when you try and use the values from the ConfigMap. Kuber
 
 In the above example the `my-config.properties` file loaded previously is extracted to /config
 
-  * _Environment variable
+  * Environment variable
   
-  The container environment can also be set via a ConfigMap
+    The container environment can also be set via a ConfigMap
 
-   ```yaml
-    - name: test-container
-        image: gcr.io/jeffellin/some-springboot-app
-        imagePullPolicy: Always
-        env:
-          - name: ENV_VAR
-            valueFrom:
-              configMapKeyRef:
-                name: my-config
-                key: some-param
-                volumeMounts:
-          - name: config-volume
-            mountPath: /config
-    ```
-    
-
-In the above example the previously set value for `some-param` is passed to the environment variable `ENV_VAR` as `foo`
+    ```yaml
+      - name: test-container
+          image: gcr.io/jeffellin/some-springboot-app
+          imagePullPolicy: Always
+          env:
+            - name: ENV_VAR
+              valueFrom:
+                configMapKeyRef:
+                  name: my-config
+                  key: some-param
+                  volumeMounts:
+            - name: config-volume
+              mountPath: /config
+      ```
+   In the above example the previously set value for `some-param` is passed to the environment variable `ENV_VAR` as `foo`
 
 ### Updating Config and Secrets
 

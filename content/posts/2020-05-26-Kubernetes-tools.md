@@ -42,9 +42,14 @@ The one tool in the suite that I find indispensable is *ytt*. This tool allows e
 If you are getting tired of the CLI, give [K9s](https://k9scli.io
 ) a try. It's a terminal-based UI to Kubernetes. You can view the status of all Kubernetes Objects, view logs, shell into containers and much more. 
 
+![pods](/wp-content/uploads/2020/05/pods.png)
+
 ## Octant
 
 Looking for something similar but browser-based? Give [Octant](https://github.com/vmware-tanzu/octant) a try. 
+
+![Octant](/wp-content/uploads/2020/05/octant.png)
+
 
 ## Visual Studio code
 
@@ -57,6 +62,8 @@ Download the base package, and be sure to install the following plugins.
 * Kubernetes Support
 
 The plugins allow you to get remote visibility into running Docker containers, and Kubernetes clusters. Also, you get code completion and syntax checking.
+
+![VS Code](/wp-content/uploads/2020/05/vscode.jpg)
 
 
 ## Cloud-native Buildpacks

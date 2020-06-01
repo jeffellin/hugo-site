@@ -7,86 +7,64 @@ description = "One aspect of creating good CI/CD pipelines is the management of 
 draft = "false"
 +++
 
->This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
+Spring Boot Data Geode is a new project aimed at simplifying the use of Geode/Gemfire/PivotalCloudCache. Its primary goal is to extend Spring Boot with auto-configuration support as well as streamline the programmer's experience while working in the spring ecosystem.
 
-<meta charset="utf-8" />
+The project has the following primary goals.
 
-<link rel="stylesheet" href="https://unpkg.com/markdown-core@1.1.0/dist/index.bundle.css" />
+* Auto Configure the ClientCache automatically when the project's starter is on the classpath.
+  
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/mermaid/6.0.0/mermaid.css" />
-<article class="markdown-body"> 
 
-<p data-source-line="3">
-  Spring Boot Data Geode is a new project aimed at simplifying the use of Geode/Gemfire/PivotalCloudCache. Its primary goal is to extend Spring Boot with auto-configuration support as well as streamline the programmer&#8217;s experience while working in the spring ecosystem.
-</p>
+  ```xml
+  <dependency>
+      <groupId>org.springframework.geode</groupId>
+      <artifactId>spring-gemfire-starter</artifactId>
+      <version>1.0.0.M4</version>
+  </dependency>
+  ```
+      
 
-<p data-source-line="5">
-  The project has the following primary goals.
-</p>
+    or
 
-<ul data-source-line="7">
-  <li>
-    Auto Configure the ClientCache automatically when the project&#8217;s starter is on the classpath.
-  </li>
-</ul>
 
-```xml
-<dependency>
-    <groupId>org.springframework.geode</groupId>
-    <artifactId>spring-gemfire-starter</artifactId>
-    <version>1.0.0.M4</version>
-</dependency>
-```
-    
+  ```xml
+  <dependency>
+      <groupId>org.springframework.geode</groupId>
+      <artifactId>spring-geode-starter</artifactId>
+      <version>1.0.0.M4</version>
+  </dependency>
+  ```    
 
-<p data-source-line="15">
-  or
-</p>
 
-```xml
-<dependency>
-    <groupId>org.springframework.geode</groupId>
-    <artifactId>spring-geode-starter</artifactId>
-    <version>1.0.0.M4</version>
-</dependency>
-```    
+  
+* Auto Configure Spring's Cache Abstraction
+  
 
-<ul data-source-line="25">
-  <li>
-    Auto Configure Spring&#8217;s Cache Abstraction
-  </li>
-</ul>
 
-```java
-@Cacheable({"books", "isbns"})
-public Book findBook(ISBN isbn) {...}
-```    
+  ```java
+  @Cacheable({"books", "isbns"})
+  public Book findBook(ISBN isbn) {...}
+  ```    
 
-<ul data-source-line="31">
-  <li>
-    Provide automatic connectivity to a cache when the application is deployed to Pivotal Cloud Foundry and bound to a Pivotal Cloud Cache.
-  </li>
-</ul>
 
-<h2 id="getting-started" data-source-line="34">
-  <a class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting Started
-</h2>
+  
+* Provide automatic connectivity to a cache when the application is deployed to Pivotal Cloud Foundry and bound to a Pivotal Cloud Cache.
+  
 
-<p data-source-line="36">
-  All code for this article can be found on <a href="https://github.com/jeffellin/gemfire-test-demo">Github</a>
-</p>
+## Getting Started
 
-<p data-source-line="38">
-  The easiest way to get started is to use Docker to start a local cache on your laptop.
-</p>
+All code for this article can be found on [Github](https://github.com/jeffellin/gemfire-test-demo)
+
+The easiest way to get started is to use Docker to start a local cache on your laptop.
+
 
 ```bash
 docker run -ti -p 40404:40404 -p 10334:10334 apachegeode/geode:1.6.0 bash
 ```    
 
-<p data-source-line="44">
-  Running this command will drop you into a GFSH shell that you can use to start the locator, server and create some regions.
-</p>
+
+Running this command will drop you into a GFSH shell that you can use to start the locator, server and create some regions.
+
 
 ```bash
 start locator --name locator
@@ -94,9 +72,9 @@ start server --name server1
 create region --name /restrictionRegion --type=REPLICATE
 ```    
 
-<p data-source-line="52">
-  Since the <code>ClientCache</code> is already registered by spring boot, all you need to do is define a <code>ClientRegionFactoryBean</code> in your configuration.
-</p>
+
+Since the `ClientCache` is already registered by spring boot, all you need to do is define a `ClientRegionFactoryBean` in your configuration.
+
 
 ```java
 @Bean("restrictionRegion")
@@ -108,10 +86,8 @@ public ClientRegionFactoryBean<String, Boolean> restrictionRegion(GemFireCache c
 }
 ```
     
+You can then inject this region into your code and do Cache Get/Put Operations.
 
-<p data-source-line="64">
-  You can then inject this region into your code and do Cache Get/Put Operations.
-</p>
 
 ```java
 @Resource(name = "restrictionRegion")
@@ -122,45 +98,39 @@ public  boolean checkRestriction(String key){
 }
     
 ```
-<p data-source-line="75">
-  Upon starting the app, Spring Boot will automatically connect to the Cache cluster running on your machine. It will use the locator address of localhost[10334]. If you wish to connect to a different Cache, you can use the following spring properties.
-</p>
+
+Upon starting the app, Spring Boot will automatically connect to the Cache cluster running on your machine. It will use the locator address of localhost[10334]. If you wish to connect to a different Cache, you can use the following spring properties.
+
 
 ```java
-    #Comma-delimited list of Locator endpoints formatted as: locator1[port1],...,locatorN[portN]
-    spring.data.gemfire.locators=localhost[10334]
-    
-    #Configures the username used to authenticate with the servers.
-    spring.data.gemfire.security.username
-    
-    #Configures the user password used to authenticate with the servers.
-    spring.data.gemfire.security.password
-```    
+  #Comma-delimited list of Locator endpoints formatted as: locator1[port1],...,locatorN[portN]
+  spring.data.gemfire.locators=localhost[10334]
+  
+  #Configures the username used to authenticate with the servers.
+  spring.data.gemfire.security.username
+  
+  #Configures the user password used to authenticate with the servers.
+  spring.data.gemfire.security.password
+```   
 
-<h2 id="testing" data-source-line="88">
-  <a class="anchor" href="#testing"><span class="octicon octicon-link"></span></a>Testing
-</h2>
 
-<p data-source-line="90">
-  Testing can be done in two ways.
-</p>
+## Testing
 
-<ul data-source-line="92">
-  <li>
-    Unit Testing with Mockito Mocks
-  </li>
-  <li>
-    Integration Tests using a real server.
-  </li>
-</ul>
 
-<h3 id="mocks" data-source-line="96">
-  <a class="anchor" href="#mocks"><span class="octicon octicon-link"></span></a>Mocks
-</h3>
+Testing can be done in two ways.
 
-<p data-source-line="98">
-  By far the easiest way to test Gemfire code is with mocks. The Gemfire region can easily be mocked using Mockito.
-</p>
+
+* Unit Testing with Mockito Mocks
+  
+  
+* Integration Tests using a real server.
+  
+
+
+## Mocks
+
+By far the easiest way to test Gemfire code is with mocks. The Gemfire region can easily be mocked using Mockito.
+
 
 ```java
 private Region restrictionRegion;
@@ -176,30 +146,23 @@ private Region restrictionRegion;
     }
 ```
 
-<h3 id="integration-testing" data-source-line="114">
-  <a class="anchor" href="#integration-testing"><span class="octicon octicon-link"></span></a>Integration Testing
-</h3>
 
-<p data-source-line="116">
-  There is a new project called<br /> <a href="https://github.com/spring-projects/spring-test-data-geode">Spring Geode Test</a>
-</p>
+## Integration Testing
 
-<p data-source-line="119">
-  This project makes it trivial to spin up a test Locator and Server for use during an integration test.
-</p>
 
-<ul data-source-line="121">
-  <li>
-    Extend ForkingClientServerIntegrationTestsSupport
-  </li>
-  <li>
-    Add a Spring boot configuration class to bootstrap a server and configure your test regions.
-  </li>
-</ul>
+There is a new project called [Spring Geode Test](https://github.com/spring-projects/spring-test-data-geode)
 
-<p data-source-line="124">
-  To start, add the following dependency to your project.
-</p>
+
+
+This project makes it trivial to spin up a test Locator and Server for use during an integration test.
+
+Extend `ForkingClientServerIntegrationTestsSupport`
+  
+  
+Add a Spring boot configuration class to bootstrap a server and configure your test regions.
+  
+ To start, add the following dependency to your project.
+
 
 ```xml
 <dependency>
@@ -216,11 +179,9 @@ private Region restrictionRegion;
     </repository>
 </repositories>
 ```    
-    
 
-<p data-source-line="142">
-  Implement a <code>@CacheServerAppliction</code> to bootstrap the test server.
-</p>
+Implement a `@CacheServerAppliction` to bootstrap the test server.
+
 
 ```java
 @CacheServerApplication(name = "AutoConfiguredIntegrationTests", logLevel = GEMFIRE_LOG_LEVEL)
@@ -252,9 +213,8 @@ public static class GemFireServerConfiguration {
 }
 ```    
 
-<p data-source-line="174">
-  you can then run your service code as required.
-</p>
+you can then run your service code as required.
+
 
 ```java
 @Autowired
@@ -270,12 +230,10 @@ public static class GemFireServerConfiguration {
     public void checkNotRestricted(){
 
         assertFalse((restrictionService.checkRestriction("notrestricted")));
-    }</code></pre>
+    }`</pre>
 ```
-<p data-source-line="194">
-  The full test code can be found here.
-</p>
 
-<p data-source-line="196">
-  <a href="https://github.com/jeffellin/gemfire-test-demo/blob/master/src/test/java/com/example/gftestdemo/GemFireTests.java">https://github.com/jeffellin/gemfire-test-demo/blob/master/src/test/java/com/example/gftestdemo/GemFireTests.java</a>
-</p></article>
+  The full test code can be found here.
+
+
+  https://github.com/jeffellin/gemfire-test-demo/blob/master/src/test/java/com/example/gftestdemo/GemFireTests.java
