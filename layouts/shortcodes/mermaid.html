@@ -1,3 +1,11 @@
-<link href="{{"mermaid/mermaid.css" | relURL}}" type="text/css" rel="stylesheet"/>
-<script defer src="{{"mermaid/mermaid.js" | relURL}}">mermaid.initialize({startOnLoad:true});</script>
-<div class="mermaid" align="{{ if .Get "align" }}{{ .Get "align" }}{{ else }}center{{ end }}" >{{ safeHTML .Inner  }}</div>
+<script src="https://unpkg.com/mermaid@8.1.0/dist/mermaid.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    mermaid.initialize({ 
+        useMaxWidth: true,
+        htmlLabels: false,
+        flowchart: { 
+                curve: 'basis' 
+        }
+    });
+</script>
+<div class="mermaid" align="{{ if .Get "align" }}{{ .Get "align" }}{{ else }}center{{ end }}">{{ safeHTML .Inner }}</div>
