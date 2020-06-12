@@ -1,18 +1,6 @@
----
-id: 149
-title: Using the Cloud Formation Driver for Docker Machine
-date: 2015-11-25T22:11:59+00:00
-author: ellinj
-layout: post
-
-permalink: /2015/11/25/using-the-cloud-formation-driver-for-docker-machine/
-geo_public:
-  - "0"
-publicize_linkedin_url:
-  - 'https://www.linkedin.com/updates?discuss=&scope=20835048&stype=M&topic=6075480901310050304&type=U&a=HXTJ'
-tags:
-  - docker
----
++++
+draft = true
++++
 
 >This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
 

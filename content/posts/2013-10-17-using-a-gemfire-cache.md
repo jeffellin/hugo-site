@@ -1,16 +1,6 @@
----
-id: 26
-title: Using a Gemfire Cache
-date: 2013-10-17T22:21:41+00:00
-author: ellinj
-layout: post
-
-permalink: /2013/10/17/using-a-gemfire-cache/
-original_post_id:
-  - "23"
-tags:
-  - GemFire
----
++++
+draft = true
++++
 
 >This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
 

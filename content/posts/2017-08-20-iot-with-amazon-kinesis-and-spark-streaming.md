@@ -1,17 +1,6 @@
----
-id: 462
-title: IoT with Amazon Kinesis and Spark Streaming
-date: 2017-08-20T13:18:51+00:00
-author: ellinj
-layout: post
-
-permalink: /2017/08/20/iot-with-amazon-kinesis-and-spark-streaming/
-tags:
-  - aws
-  - IoT
-  - spark
----
-
++++
+draft = true
++++
 
 >This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
 

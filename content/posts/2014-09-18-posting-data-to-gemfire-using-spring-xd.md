@@ -1,19 +1,6 @@
----
-id: 28
-title: Posting Data to GemFire Using Spring XD
-date: 2014-09-18T21:15:36+00:00
-author: ellinj
-layout: post
-
-permalink: /2014/09/18/posting-data-to-gemfire-using-spring-xd/
-tags:
-  - GemFire
-  - SpringXD
-  - Uncategorized
-tags:
-  - GemFire
-  - spring
----
++++
+draft = true
++++
 
 >This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
 

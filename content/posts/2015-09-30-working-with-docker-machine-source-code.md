@@ -1,20 +1,6 @@
----
-id: 127
-title: Working with Docker Machine Source Code
-date: 2015-09-30T18:01:09+00:00
-author: ellinj
-layout: post
-
-permalink: /2015/09/30/working-with-docker-machine-source-code/
-geo_public:
-  - "0"
-publicize_linkedin_url:
-  - 'https://www.linkedin.com/updates?discuss=&scope=20835048&stype=M&topic=6055048561471602688&type=U&a=Y5ZP'
-tags:
-  - docker
-  - Go
----
-
++++
+draft = true
++++
 >This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
 
 Recently I dived into creating a <a href="https://github.com/docker/machine/pull/1905" target="_blank">pull request</a> for docker-machine.  Unfortunately when creating EC2 instances docker-machine did not provide an option for specifying an EBS optimized instance.  EBS Optimized instances provide much better disk i/o performance to an EBS Volume.

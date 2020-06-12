@@ -1,20 +1,6 @@
----
-id: 21
-title: Using Spring Data Gemfire and Spring Boot
-date: 2014-09-14T20:14:54+00:00
-author: ellinj
-layout: post
-
-permalink: /2014/09/14/using-spring-data-gemfire-and-spring-boot/
-sharing_disabled:
-  - "1"
-geo_public:
-  - "0"
-tags:
-  - GemFire
-  - spring
----
-
++++
+draft = true
++++
 
 >This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
 

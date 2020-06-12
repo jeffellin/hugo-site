@@ -1,19 +1,6 @@
----
-id: 89
-title: Durable Messaging with GemFire and Spring Integration
-date: 2014-09-23T22:00:00+00:00
-author: ellinj
-layout: post
-
-permalink: /2014/09/23/durable-messaging-with-gemfire-and-spring-integration/
-publicize_facebook_url:
-  - https://facebook.com/10205029339998618
-publicize_linkedin_url:
-  - 'https://www.linkedin.com/updates?discuss=&scope=20835048&stype=M&topic=5920368508364939264&type=U&a=0MaS'
-tags:
-  - Uncategorized
----
-
++++
+draft = true
++++
 
 >This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
 

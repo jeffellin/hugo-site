@@ -1,14 +1,6 @@
----
-id: 530
-title: How to Build a Chat Application with Amazon ElastiCache for Redis | AWS Database Blog
-date: 2017-09-05T22:58:40+00:00
-author: ellinj
-layout: post
-
-permalink: /2017/09/05/how-to-build-a-chat-application-with-amazon-elasticache-for-redis-aws-database-blog/
-tags:
-  - external
----
++++
+draft = true
++++
 
 >This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
 

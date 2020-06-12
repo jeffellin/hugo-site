@@ -1,20 +1,6 @@
----
-id: 79
-title: Connecting Spring Integration to GemFire part 2
-date: 2014-09-22T22:00:00+00:00
-author: ellinj
-layout: post
-
-permalink: /2014/09/22/connecting-spring-integration-to-gemfire-part-2/
-publicize_facebook_url:
-  - https://facebook.com/10205022489227353
-publicize_linkedin_url:
-  - 'https://www.linkedin.com/updates?discuss=&scope=20835048&stype=M&topic=5920025995296915456&type=U&a=HEWi'
-tags:
-  - GemFire
-  - spring
-  - spring-integration
----
++++
+draft = true
++++
 
 >This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
 

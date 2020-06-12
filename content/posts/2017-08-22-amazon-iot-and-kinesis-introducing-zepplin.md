@@ -1,16 +1,6 @@
----
-id: 502
-title: 'Amazon IoT and Kinesis: Introducing Zeppelin'
-date: 2017-08-22T18:19:38+00:00
-author: ellinj
-layout: post
-
-permalink: /2017/08/22/amazon-iot-and-kinesis-introducing-zepplin/
-tags:
-  - aws
-  - IoT
-  - spark
----
++++
+draft = true
++++
 
 >This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
 

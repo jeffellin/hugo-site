@@ -1,18 +1,6 @@
----
-id: 135
-title: Moving Docker Machines Definitions
-date: 2015-10-12T18:00:59+00:00
-author: ellinj
-layout: post
-
-permalink: /2015/10/12/moving-docker-machines-definitions/
-geo_public:
-  - "0"
-publicize_linkedin_url:
-  - 'https://www.linkedin.com/updates?discuss=&scope=20835048&stype=M&topic=6059461587591315458&type=U&a=fSgX'
-tags:
-  - docker
----
++++
+draft = true
++++
 
 >This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
 

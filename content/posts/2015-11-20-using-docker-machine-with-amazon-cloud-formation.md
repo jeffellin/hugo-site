@@ -1,20 +1,6 @@
----
-id: 140
-title: Using Docker Machine with Amazon Cloud Formation
-date: 2015-11-20T19:27:24+00:00
-author: ellinj
-layout: post
-
-permalink: /2015/11/20/using-docker-machine-with-amazon-cloud-formation/
-geo_public:
-  - "0"
-draftfeedback_requests:
-  - 'a:1:{s:13:"564f1f2ed1985";a:3:{s:3:"key";s:13:"564f1f2ed1985";s:4:"time";s:10:"1448025902";s:7:"user_id";s:6:"269853";}}'
-publicize_linkedin_url:
-  - 'https://www.linkedin.com/updates?discuss=&scope=20835048&stype=M&topic=6073627541657174016&type=U&a=Zez8'
-tags:
-  - docker
----
++++
+draft = true
++++
 
 >This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
 
