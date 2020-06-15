@@ -4,7 +4,7 @@ date = 2020-06-07T13:35:15-04:00
 tags = ["kubernetes"]
 featured_image = ""
 description = "Open Policy Agent w Kubernetes Part 2"
-draft = "true"
+draft = "false"
 +++
 
 # Open Policy Agent (OPA) and Kubernetes Part 2
@@ -25,8 +25,7 @@ The prod namespace URLs should always match the following regular expression:
 
 ## The Video
 
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/ZJgaGJm9NJE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dELQoCN2g_E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Installation
 
@@ -51,7 +50,7 @@ Detailed steps are provided in the [OPA Docs](https://www.openpolicyagent.org/do
 git clone https://github.com/jeffellin/opa
 cd opa
 ```
-Create a namespace for Opa
+Create a namespace for OPA
 ```
 kubectl create namespace opa
 kubectl config set-context opa-tutorial --user minikube --namespace opa
@@ -78,11 +77,38 @@ set no policy flag for the `opa` and `kube-system` namespaces
 kubectl label ns kube-system openpolicyagent.org/webhook=ignore
 kubectl label ns opa openpolicyagent.org/webhook=ignore
 ```
-register opa as an admission controller
+register OPA as an admission controller
 ```
+cat > webhook-configuration.yaml <<EOF
+kind: ValidatingWebhookConfiguration
+apiVersion: admissionregistration.k8s.io/v1beta1
+metadata:
+  name: opa-validating-webhook
+webhooks:
+  - name: validating-webhook.openpolicyagent.org
+    namespaceSelector:
+      matchExpressions:
+      - key: openpolicyagent.org/webhook
+        operator: NotIn
+        values:
+        - ignore
+    rules:
+      - operations: ["CREATE", "UPDATE"]
+        apiGroups: ["*"]
+        apiVersions: ["*"]
+        resources: ["*"]
+    clientConfig:
+      caBundle: $(cat ca.crt | base64 | tr -d '\n')
+      service:
+        namespace: opa
+        name: opa
+EOF
+
 kubectl apply -f webhook-configuration.yaml
+
 # apply the policy
 kubectl create configmap ingress-whitelist --from-file=ingress-whitelist.rego
+
 ```
 
 ## Test out your policy
