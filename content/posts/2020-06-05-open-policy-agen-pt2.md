@@ -45,19 +45,19 @@ All of the YAML required to install the OPA is available on [Github](https://git
 
 Detailed steps are provided in the [OPA Docs](https://www.openpolicyagent.org/docs/latest/kubernetes-tutorial/) as well as the attached video. For your convenience, I have added everything you need to a Git repository.
 
-```
+```language-bash
 # clone the git repo
 git clone https://github.com/jeffellin/opa
 cd opa
 ```
 Create a namespace for OPA
-```
+```language-bash
 kubectl create namespace opa
 kubectl config set-context opa-tutorial --user minikube --namespace opa
 kubectl config use-context opa-tutorial
 ```
 Create a CA for OPA
-```
+```language-bash
 openssl genrsa -out ca.key 2048
 openssl req -x509 -new -nodes -key ca.key -days 100000 -out ca.crt -subj "/CN=admission_ca"
 penssl genrsa -out server.key 2048
@@ -65,21 +65,20 @@ openssl req -new -key server.key -out server.csr -subj "/CN=opa.opa.svc" -config
 openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt -days 100000 -extensions v3_req -extfile server.conf
 ```
 Put the new Cert into a secret.
-```
+```bash
 kubectl create secret tls opa-server --cert=server.crt --key=server.key
 ```
 create the admission controller
-```
+```bash
 kubectl apply -f admission-controller.yaml
 ```
 set no policy flag for the `opa` and `kube-system` namespaces
-```
+```bash
 kubectl label ns kube-system openpolicyagent.org/webhook=ignore
 kubectl label ns opa openpolicyagent.org/webhook=ignore
 ```
 register OPA as an admission controller
-```
-cat > webhook-configuration.yaml <<EOF
+```yaml
 kind: ValidatingWebhookConfiguration
 apiVersion: admissionregistration.k8s.io/v1beta1
 metadata:
@@ -115,18 +114,18 @@ kubectl create configmap ingress-whitelist --from-file=ingress-whitelist.rego
 
 Create a `prod` and `qa` namespace with a label.
 
-```
+```bash
 to indicate valid domains
 kubectl create -f qa-namespace.yaml
 kubectl create -f production-namespace.yaml
 ```
 
 Create an valid ingress for the production namespace.
-```
+```bash
 kubectl create -f ingress-ok.yaml -n production
 ```
 create a bad ingress for the qa namespace.
-```
+```bash
 kubectl create -f ingress-bad.yaml -n qa
 ```
 

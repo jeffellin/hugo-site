@@ -1,5 +1,6 @@
 disqusShortname = "www-ellin-com"
 googleAnalytics = "UA-92905431-2"
+PygmentsCodeFences = false
 theme = "diary"
 title = "Ellin.com"
 baseURL = "https://www.ellin.com/"
