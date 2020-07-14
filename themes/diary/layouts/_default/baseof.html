@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    {{- partial "head.html" . -}}
+    <body>
+    	<div id="app">
+            {{- partial "sidebar.html" . -}}
+            {{- partial "extrabar.html" . -}}
+            <!-- PC view -->
+
+            {{- partial "mobile-header.html" . -}}
+            <!-- mobile header -->
+            <div id="content">
+                    {{- block "main" . }}{{- end }}
+            </div>
+        
+            {{- partial "mobile-footer.html" . -}}
+            <!-- mobile footer -->
+            </div>
+           
+            {{ partial "journal.html" .}}
+
+    	</div>
+    <script src="{{.Site.BaseURL}}/js/journal.js"></script>
+    <!--osana cookie consent-->
+    <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+<script>
+window.cookieconsent.initialise({
+  "palette": {
+    "popup": {
+      "background": "#000"
+    },
+    "button": {
+      "background": "#f1d600"
+    }
+  },
+  "theme": "classic",
+  "position": "bottom-left"
+});
+</script>
+
+    </body>
+</html>
