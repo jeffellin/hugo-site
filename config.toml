@@ -20,12 +20,13 @@ url = "/tags"
 name = "Tags"
 weight = 5
 
-
+[[menu.main]]
+url = "/links"
+name = "Links"
+weight = 5
 
 
 [[menu.main]]
-
-
 url = "https://www.linkedin.com/in/jeffreyellin/"
 name = "LinkedIn"
 weight = 99
@@ -34,6 +35,7 @@ weight = 99
 url = "http://github.com/jeffellin"
 name = "GitHub"
 weight = 100
+
 
 title = "Ellin.com : Not very interesting"
 copyright = "This is a customized copyright."

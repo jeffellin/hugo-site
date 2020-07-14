@@ -3,7 +3,7 @@
 
 <div ref="streamContainer" class="stream-container">
     <div class="post-list-container post-list-container-no-background">
-        {{ $paginator := .Paginate (where .Site.Pages "Type" "post") }}
+        {{ $paginator := .Paginate (where .Site.Pages "Type" "posts") }}
         {{ range $paginator.Pages }}
         {{if and (.IsPage) (.Params.date)}}
             <a href="{{.Permalink}}" class="a-block">
