@@ -5,15 +5,27 @@ title = "Ellin.com"
 baseURL = "https://www.ellin.com/"
 Copyright = "2020 Jeffrey Ellin"
 [[menu.main]]
-url = "/tags"
-name = "Tags"
+url = "/posts"
+name = "Blog"
 weight = 3
 
+[[menu.main]]
+url = "/tech"
+name = "Recipes"
+weight = 3
+
+
+[[menu.main]]
+url = "/tags"
+name = "Tags"
+weight = 5
 
 
 
 
 [[menu.main]]
+
+
 url = "https://www.linkedin.com/in/jeffreyellin/"
 name = "LinkedIn"
 weight = 99
@@ -37,6 +49,8 @@ owner =  'jeffellin'
 
 [permalinks]
   posts = "/:year/:month/:day/:title/"
+  tech = "/tech/:year/:month/:day/:title/"
+ 
 [markup]
   # Syntax Highlighting (https://gohugo.io/content-management/syntax-highlighting)
   [markup.highlight]
