@@ -113,3 +113,18 @@ You can also include environment variable references in your `server.xml`
 <serverName>${env.SERVER_NAME}</serverName>
 ```
 
+### Starting the Server.
+
+If you would like to skip all the autoconfiguration magic simply make sure to supply a `server.xml` and add the following `RUN` command to your Dockerfile.
+
+```yml
+RUN installUtility install --acceptLicense defaultServer
+```
+
+The `CMD` element from the base `Dockerfile` is 
+
+```yml
+CMD ["/opt/ol/wlp/bin/server", "run", "defaultServer"]
+```
+
+If for some reason you need to do additional work before the app server starts you can simply replace this line in your `Dockerfile` with a shell script that ultimately calls the server run.
