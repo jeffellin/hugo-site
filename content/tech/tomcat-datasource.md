@@ -15,7 +15,7 @@ public DataSource jndiDataSource() throws NamingException {
 
 
 
-ublic TomcatEmbeddedServletContainerFactory tomcatEmbeddedServletContainerFactory() {
+public TomcatEmbeddedServletContainerFactory tomcatEmbeddedServletContainerFactory() {
     return new TomcatEmbeddedServletContainerFactory() {
 
         @Override
