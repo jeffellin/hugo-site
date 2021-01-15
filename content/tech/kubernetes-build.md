@@ -45,8 +45,9 @@ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
 sudo apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
 
 ## install kubernetes
-sudo apt install -y kubeadm kubelet kubectl kubernetes-cni
-
+sudo apt install -y kubeadm=1.19.5-00 kubelet=1.19.5-00 kubectl=1.19.5-00 kubernetes-cni=0.8.7-00
+sudo apt-mark hold kubeadm=1.19.5-00 kubelet=1.19.5-00 kubectl=1.19.5-00 kubernetes-cni=0.8.7-00
+sudo apt-mark showhold
 ## only on master
 sudo kubeadm init --pod-network-cidr=10.244.0.0/16
 
