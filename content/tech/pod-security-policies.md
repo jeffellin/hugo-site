@@ -1,6 +1,6 @@
 +++
-title = "Kubernetes on Ubuntu 20.04"
-date = 2020-11-23T00:35:15-04:00
+title = ""Kubernetes Pod Security Policy"
+date = 2021-01-13T00:35:15-04:00
 tags = ["kubernetes","ubuntu"]
 category = ["tech"]
 featured_image = ""
