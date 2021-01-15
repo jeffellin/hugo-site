@@ -1,5 +1,5 @@
 +++
-title = ""Kubernetes Pod Security Policy"
+title = "Kubernetes Pod Security Policy"
 date = 2021-01-13T00:35:15-04:00
 tags = ["kubernetes","ubuntu"]
 category = ["tech"]
