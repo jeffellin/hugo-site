@@ -1,6 +1,6 @@
 +++
-title = "Kubernetes on Ubuntu 20.04"
-date = 2020-07-14T00:35:15-04:00
+title = "Generating a cert for vcenter7"
+date = 2021-01-14T00:35:15-04:00
 tags = ["vcenter","vmware"]
 category = ["tech"]
 featured_image = ""
