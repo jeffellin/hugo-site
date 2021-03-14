@@ -18,6 +18,8 @@ Cluster members discover each other using multicast networking. Unfortunately, t
 
 KUBE_PING is the protocol used to achieve WildFly clustering in Kubernetes. 
 
+### Configure KUBE_PING
+
 The first step in configuring KUBE_PING is to create a WildFly CLI configuration file. This file is used to manipulate the standalone-full-ha.xml file during container creation. 
 
 config-server.cli
