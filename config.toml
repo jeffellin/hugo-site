@@ -3,7 +3,7 @@ googleAnalytics = "UA-92905431-2"
 theme = "diary"
 title = "Ellin.com"
 baseURL = "https://www.ellin.com/"
-Copyright = "2020 Jeffrey Ellin"
+Copyright = "2021 Jeffrey Ellin"
 [[menu.main]]
 url = "/posts"
 name = "Blog"
