@@ -1,5 +1,6 @@
 +++
 title = "Kubernetes on Ubuntu 20.04"
+slug = "k8sonubuntu"
 date = 2020-11-23T00:35:15-04:00
 tags = ["kubernetes","ubuntu"]
 category = ["tech"]

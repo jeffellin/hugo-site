@@ -8,7 +8,9 @@ description = "Customizing Ingress Extension for TKG"
 draft = "false"
 +++
 
-# Install K8s
+# Updating TKG Extensions using YTT
+
+[TKG Extension install here](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/1.2/vmware-tanzu-kubernetes-grid-12/GUID-extensions-index.html)
 
 Add the following configuration to the countour config map.
 name of the file doesn't matter just use the yaml extension.

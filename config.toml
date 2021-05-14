@@ -11,7 +11,7 @@ weight = 3
 
 [[menu.main]]
 url = "/tech"
-name = "Recipes"
+name = "Tech"
 weight = 3
 
 
@@ -50,8 +50,8 @@ repo =  'hugo-site'
 owner =  'jeffellin'
 
 [permalinks]
-  posts = "/:year/:month/:day/:title/"
-  tech = "/tech/:year/:month/:day/:title/"
+  posts = "/:year/:month/:day/:slug/"
+  tech = "/tech/:year/:month/:day/:slug/"
  
 [markup]
   # Syntax Highlighting (https://gohugo.io/content-management/syntax-highlighting)
