@@ -1,0 +1,304 @@
++++
+title = "Integrating Jenkins, Tanzu Build Service and ArgoCD"
+date = 2021-05-16T13:35:15-04:00
+tags = ["kubernetes","Tanzu"]
+featured_image = ""
+description = "Integrating Jenkins, Tanzu Build Service and ArgoCD"
+draft = "true"
++++
+
+# Integrating Jenkins, Tanzu Build Service, and ArgoCD
+
+This post is part one of a three-part series discussing how to integrate Jenkins, Tanzu Build Service, and ArgoCD.
+
+* Part 1: Iterative Development
+* Part 2: Intake of Buildpack updates
+* Part 3: Promoting code to production
+
+## Why Tanzu Build Service.
+
+One of the most significant issues with adopting Kubernetes is developing a workflow that allows for building production-ready container images. Images need to be built and frequently in a repeatable manner. 
+
+Tanzu Build Services (TBS) leverages something called a Buildpack to build containers. A Buildpack is a standard approach to ingesting application source code and converting it into a runnable container. Since Buildpacks are based on a standard implementation, multiple vendors can provide Buildpacks.  VMware bundles an extended set of Buildpacks based on the [Packeto](https://paketo.io) open-source project.
+ 
+Normally containers based on BuildPacks are built using a CLI command called `pack`.  The `pack` tool scans source code the determine what type of BuildPacks to use and applies its configuration to a base operating system image.
+
+Tanzu Build Service extends the `cli` by creating builds with a declarative manifest.  Containers are rebased by TBS when newer BuildPacks are imported into the cluster.
+
+### Developer Perspective
+
+_As a software developer_:
+
+* I don't want to understand how to build Docker containers. 
+* I don't want to be responsible for maintaining and patching containers.
+ 
+**Given** some source code, I just want to be able to **run** it on Kubernetes.
+
+### CTO Perspective
+
+_As a CTO_ 
+
+* I want to ensure my organization's applications are always running the latest patches available. 
+* I want my developers only to run software from a trustworthy repository.
+* I want my developers to spend more time developing new features and not patching operating systems.
+ 
+**Given** a Kubernetes application, I want any easy way to update the container to fix the latest CVEs.
+
+# Development Iteration
+
+![Window_and_localhost_8080_hello-world](/wp-content/uploads/2021/TBS-Dev-Integration.png)
+
+The above diagram depicts the flow when a developer commits new code. 
+
+1. Jenkins Fires a new Job when a check in to GIT on to the master branch. At this point, Jenkins can run unit tests, code coverage, and other static analysis tasks.
+2. After the compilation/test phase is complete, Jenkins submits the artifact to the Tanzu Build Service.
+3. After Tanzu Build Service completes the creation of the Image, Jenkins, updates the kustomization manifest automatically
+4. ArgoCD applies the latest configuration to the development cluster.
+
+*_Argo Out of Sync_*
+
+![Argo](/wp-content/uploads/2021/Applications-Argo.png)
+
+Any differences between the GIT Baseline and what is deployed by Argo are reconciled automatically.  Logging in Argo will show when and why artifacts changed.
+
+*_Argo visits service changed_*
+
+![Argo](/wp-content/uploads/2021/Applications-Argooos.png)
+
+
+## Implementing This.
+
+Although any continuous delivery tool could be used to implement this workflow, I chose Jenkins for its ubiquity. If you want to follow along and run my pipelines, you will want to make sure you have Jenkins configured to run builds inside Kubernetes containers.
+
+### Jenkins Prerequisites
+
+The following plugins must be installed: 
+
+ - kubernetes:1.29.2
+ - job-dsl:1.77
+ - envinject:2.4.0
+ - ssh-agent:1.22
+ - kubernetes-credentials-provider:0.18-1
+
+I have included the versions of the plugins I am using. The Jenkins plugin ecosystem is very volatile, so version numbers may vary for you over time.
+
+### App Seed
+
+In the Spirit of Configuration as Code, I have a groovy script that is used to seed jobs within Jenkins. Adding a new Job is as simple as adding a new entry to the script and committing the changes to GIT. In the code below, I have the name of the project and the name of the pipeline file that should be used to build the result. Since all my apps are Spring Boot, they all can use the same pipeline. A pipeline file is nothing more than a Groovy script that instructs Jenkins on executing a job.
+
+```
+def apps = [
+ 'spring-petclinic-vets-service': [
+ buildPipeline: 'ci/jenkins/pipelines/spring-boot-app.pipeline'
+ ],
+ 'spring-petclinic-api-gateway': [
+ buildPipeline: 'ci/jenkins/pipelines/spring-boot-app.pipeline'
+ ],
+ 'spring-petclinic-visits-service': [
+ buildPipeline: 'ci/jenkins/pipelines/spring-boot-app.pipeline'
+ ],
+ 'spring-petclinic-httpbin': [
+ buildPipeline: 'ci/jenkins/pipelines/spring-boot-app.pipeline'
+ ],
+ 'spring-petclinic-config-server': [
+ buildPipeline: 'ci/jenkins/pipelines/spring-boot-app.pipeline'
+ ]
+]
+
+
+apps.each { name, appInfo ->
+
+
+ pipelineJob(name) {
+ description("Job to build '$name'. Generated by the Seed Job, please do not change !!!")
+ environmentVariables(
+ APP_NAME: name
+ )
+ definition {
+ cps {
+ script(readFileFromWorkspace(appInfo.buildPipeline))
+ sandbox()
+ }
+ } 
+ triggers {
+ scm('* * * * *') 
+ }
+ properties{
+ disableConcurrentBuilds()
+ }
+ }
+}
+```
+The complete script is available [here](https://raw.githubusercontent.com/jeffellin/spring-petclinic-microservices/k8s/ci/jenkins/apps.groovy)
+
+### The Pipeline
+
+The pipeline implements several stages. 
+
+1. Fetch from GitHub
+2. Create Image
+3. Update Deployment Manifest
+
+All of these steps are performed in a clean docker container as defined in the pod template.
+
+```
+apiVersion: v1
+kind: Pod
+metadata:
+ labels:
+ app.kubernetes.io/name: jenkins-build
+ app.kubernetes.io/component: jenkins-build
+ app.kubernetes.io/version: "1"
+spec:
+ volumes:
+ - name: secret-volume
+ secret:
+ secretName: pks-cicd 
+ hostAliases:
+ - ip: 192.168.1.154
+ hostnames:
+ - "small.pks.ellin.net"
+ - ip: 192.168.1.80
+ hostnames:
+ - "harbor.ellin.net"
+ containers:
+ - name: k8s
+ image: harbor.ellin.net/library/docker-build
+ command:
+ - sleep
+ env:
+ - name: KUBECONFIG
+ value: "/tmp/config/jenkins-sa"
+ volumeMounts:
+ - name: secret-volume
+ readOnly: true
+ mountPath: "/tmp/config" 
+ args:
+ - infinity
+```
+
+Since our pod needs access to a remote Kubernetes cluster, I have mounted a service account KUBECONFIG into the pod as a secret.
+
+1. Fetch from GitHub
+ ``` stage('Fetch from GitHub') {
+ steps {
+ dir("app"){
+ git(
+ poll: true,
+ changelog: true,
+ branch: "main",
+ credentialsId: "git-jenkins",
+ url: "git@github.com:jeffellin/${APP_NAME}.git"
+ )
+ sh 'git rev-parse HEAD > git-commit.txt'
+ }
+ }
+ }
+ ```
+
+2. Create an Image with TBS. Use the `-w` flag to wait until the build is complete.
+
+ ``` 
+ stage('Create Image') {
+ steps {
+ container('k8s') {
+ sh '''#!/bin/sh -e
+ export GIT_COMMIT=$(cat app/git-commit.txt)
+ kp image save ${APP_NAME} \
+ --git git@github.com:jeffellin/${APP_NAME}.git \
+ -t harbor.ellin.net/dev/${APP_NAME} \
+ --env BP_GRADLE_BUILD_ARGUMENTS='--no-daemon build' \
+ --git-revision ${GIT_COMMIT} -w
+ '''
+ } 
+ ````
+
+3. Update Deployment Manifest
+
+ Since we use `Kustomize` to maintain our deployment versions. We update the `kustomization.yaml` using `kustomize` itself.
+
+ ```
+ stage('Update Deployment Manifest'){
+ steps {
+ container('k8s'){
+ dir("gitops"){
+ git(
+ poll: false,
+ changelog: false,
+ branch: "master",
+ credentialsId: "git-jenkins",
+ url: "git@github.com:jeffellin/spring-petclinic-gitops.git"
+ )
+ }
+ sshagent(['git-jenkins']) { 
+ sh '''#!/bin/sh -e
+ 
+ kubectl get image ${APP_NAME} -o json | jq -r .status.latestImage >> containerversion.txt
+ export CONTAINER_VERSION=$(cat containerversion.txt)
+ cd gitops/app
+ kustomize edit set image ${APP_NAME}=${CONTAINER_VERSION}
+ git config --global user.name "jenkins CI"
+ git config --global user.email "none@none.com"
+ git add .
+ git diff-index --quiet HEAD || git commit -m "update by ci"
+ mkdir -p ~/.ssh
+ ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+ git pull -r origin master
+ git push --set-upstream origin master
+ '''
+ } 
+ }}}
+ ```
+
+All of these steps run within the "k8s" container, which was pulled from Harbor.
+
+harbor.ellin.net/library/docker-build
+
+This image is based on the following Dockerfile. 
+
+```
+FROM docker:dind
+
+ENV KUBE_VERSION 1.20.4
+ENV HELM_VERSION 3.5.3
+ENV KP_VERSION 0.2.0
+RUN apk add --no-cache ca-certificates bash git openssh curl jq bind-tools subversion git-svn \
+ && wget -q https://storage.googleapis.com/kubernetes-release/release/v${KUBE_VERSION}/bin/linux/amd64/kubectl -O /usr/local/bin/kubectl \
+ && chmod +x /usr/local/bin/kubectl \
+ && wget -q https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz -O - | tar -xzO linux-amd64/helm > /usr/local/bin/helm \
+ && chmod +x /usr/local/bin/helm \
+ && chmod g+rwx /root \
+ && mkdir /config \
+ && chmod g+rwx /config \
+ && helm repo add "stable" "https://charts.helm.sh/stable" --force-update
+
+RUN wget https://github.com/vmware-tanzu/kpack-cli/releases/download/v${KP_VERSION}/kp-linux-${KP_VERSION}
+RUN mv kp-linux-${KP_VERSION} /usr/local/bin/kp
+RUN chmod a+x /usr/local/bin/kp
+
+RUN curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
+RUN mv kustomize /usr/local/bin
+
+#ADD ca.crt /usr/local/share/ca-certificates
+#RUN update-ca-certificates
+WORKDIR /config
+
+CMD bash
+```
+
+It's a standard docker image with some utilities that we commonly need to use. 
+
+ * bash
+ * git
+ * openssh
+ * curl
+ * jq
+ * helm
+ * kubectl
+ * kustomize
+
+The complete script is available [here](https://raw.githubusercontent.com/jeffellin/spring-petclinic-microservices/k8s/ci/jenkins/pipelines/spring-boot-app.pipeline)
+
+All the source code for the `pet-clinic` and its deployment are available on [GitHub](https://github.com/jeffellin/spring-petclinic-microservices/tree/k8s)
+
+In the following article, I will include an example of how to automate promoting artifacts to a stage/prod environment using GitOps.
