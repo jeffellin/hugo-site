@@ -4,10 +4,9 @@ date = 2021-05-16T13:35:15-04:00
 tags = ["kubernetes","Tanzu"]
 featured_image = ""
 description = "Integrating Jenkins, Tanzu Build Service and ArgoCD"
-draft = "true"
+draft = "false"
 +++
 
-# Integrating Jenkins, Tanzu Build Service, and ArgoCD
 
 This post is part one of a three-part series discussing how to integrate Jenkins, Tanzu Build Service, and ArgoCD.
 
@@ -212,6 +211,10 @@ Since our pod needs access to a remote Kubernetes cluster, I have mounted a serv
  '''
  } 
  ````
+
+_Images Monitored by TBS_
+
+![TBS Images](/wp-content/uploads/2021/tbs.png)
 
 3. Update Deployment Manifest
 
