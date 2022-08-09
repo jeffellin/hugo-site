@@ -8,11 +8,7 @@ draft = "false"
 +++
 
 
-This post is part one of a three-part series discussing how to integrate Jenkins, Tanzu Build Service, and ArgoCD.
-
-* Part 1: Iterative Development
-* Part 2: Intake of Buildpack updates
-* Part 3: Promoting code to production
+This post discusses how to integrate Jenkins, Tanzu Build Service, and ArgoCD.
 
 ## Why Tanzu Build Service.
 
@@ -303,5 +299,3 @@ It's a standard docker image with some utilities that we commonly need to use.
 The complete script is available [here](https://raw.githubusercontent.com/jeffellin/spring-petclinic-microservices/k8s/ci/jenkins/pipelines/spring-boot-app.pipeline)
 
 All the source code for the `pet-clinic` and its deployment are available on [GitHub](https://github.com/jeffellin/spring-petclinic-microservices/tree/k8s)
-
-In the following article, I will include an example of how to automate promoting artifacts to a stage/prod environment using GitOps.
