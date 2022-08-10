@@ -1,11 +1,10 @@
 ---
 id: 548
-title: 'Versioning a Microservice System with git &#8211; OpenCredo'
+title: 'Versioning a Microservice System with git and OpenCredo'
 date: 2018-01-26T00:51:38+00:00
 author: ellinj
 layout: post
 
-permalink: /2018/01/26/versioning-a-microservice-system-with-git-opencredo/
 tags:
   - external
 ---

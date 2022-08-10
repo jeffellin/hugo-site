@@ -5,7 +5,6 @@ date: 2016-04-01T15:27:46+00:00
 author: ellinj
 layout: post
 
-permalink: /2016/04/01/jerseyjax-rs-with-spring-boot/
 geo_public:
   - "0"
 publicize_linkedin_url:

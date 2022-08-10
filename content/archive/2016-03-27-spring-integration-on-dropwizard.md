@@ -5,7 +5,6 @@ date: 2016-03-27T08:33:34+00:00
 author: ellinj
 layout: post
 
-permalink: /2016/03/27/spring-integration-on-dropwizard/
 geo_public:
   - "0"
 publicize_linkedin_url:

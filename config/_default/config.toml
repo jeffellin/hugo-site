@@ -23,4 +23,5 @@ home = ["HTML", "RSS", "JSON"]
 
 [permalinks]
   post = "/:year/:month/:day/:slug/"
+  archive = "/:year/:month/:day/:slug/"
   tech = "/tech/:year/:month/:day/:slug/"

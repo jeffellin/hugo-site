@@ -5,7 +5,6 @@ date: 2013-10-05T21:43:42+00:00
 author: ellinj
 layout: post
 
-permalink: /2013/10/05/groovy-pogos/
 original_post_id:
   - "15"
 tags:
