@@ -4,14 +4,12 @@ title: Building a scalable web site using AWS/Docker/Terraform
 date: 2017-08-10T16:17:49+00:00
 author: ellinj
 layout: post
-
+series: scalable-website
 permalink: /2017/08/10/building-a-scalabale-web-site-using-awsdockerterraform/
 tags:
   - aws
   - docker
 ---
-
->This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
 
 In the past I have written posts about using infrastructure as code to deploy your web applications in a repeatable and controllable fashion using the concept of infrastructure as code. Today I would like to give a concrete example of how this is done using word press deployed to AWS.
 

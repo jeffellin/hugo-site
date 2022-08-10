@@ -4,15 +4,13 @@ title: 'Building a scalable web site using AWS/Docker/Terraform: odds and ends'
 date: 2017-08-11T13:30:42+00:00
 author: ellinj
 layout: post
+series: scalable-website
 
 permalink: /2017/08/11/building-a-scalable-web-site-using-awsdockerterraform-odds-and-ends/
 tags:
   - aws
   - docker
 ---
-
->This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
-
 
 In this final post I would like to cover some of the odds and ends we didn&#8217;t cover in previous posts.  There are still some additional tasks you can complete to improve availability, elasticity and security.
 

@@ -6,8 +6,7 @@ copyright = "Copyright © 2008–2018, Steve Francia and the Hugo Authors; all r
 # canonifyurls = true
 paginate = 10
 theme = "hugo-clarity"
-disqusShortname = ""
-
+disqusShortname = "www-ellin-com"
 DefaultContentLanguage = "en"
 # [languages]
 # config/_default/languages.toml

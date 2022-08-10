@@ -4,15 +4,13 @@ title: 'Building a scalable web site using AWS/Docker/Terraform: adding elastici
 date: 2017-08-13T12:20:09+00:00
 author: ellinj
 layout: post
-
+series: scalable-website
+series: scalable-website
 permalink: /2017/08/13/building-a-scalable-web-site-using-awsdockerterraform-adding-elasticity/
 tags:
   - aws
   - docker
 ---
-
->This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
-
 
 In order to cope with increased demand we need a method to add additional capacity when required.  To do this we can utilize cloud watch alarms to trigger our autoscaling group.  By having additional nodes in the web tier we can increase our capacity.  When the demand tapers off we can remove nodes. We can also use Cloud Front to distribute our images, javascript and css to edge nodes that are closer to the users.
 

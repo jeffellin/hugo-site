@@ -4,14 +4,13 @@ title: 'Building a scalable web site using AWS/Docker/Terraform: adding RDS and 
 date: 2017-08-11T02:03:50+00:00
 author: ellinj
 layout: post
+series: scalable-website
 
 permalink: /2017/08/11/building-a-scalable-web-site-using-awsdockerterraform-adding-rds-and-wordpress/
 tags:
   - aws
   - docker
 ---
-
->This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
 
 In my last [post](/2017/08/10/building-a-scalabale-web-site-using-awsdockerterraform/) I talked about using Terraform to use infrastructure as code principles to create a VPC environment to host a WordPress site. In this article we will deploy an RDS and an EC2 instance to host WordPress.
 

@@ -4,14 +4,13 @@ title: 'Building a scalable web site using AWS/Docker/Terraform: adding redundan
 date: 2017-08-12T21:23:35+00:00
 author: ellinj
 layout: post
+series: scalable-website
 
 permalink: /2017/08/12/building-a-scalable-web-site-using-awsdockerterraform-adding-redundancy/
 tags:
   - aws
   - docker
 ---
-
->This page was converted from my old blog and hasn't been reviewed. If you see an error please let me know in the comments.
 
 In my last post I showed how to use Terraform to create an EC2 instance as well as a RDS to host WordPress.  One problem with this setup is that we only have one host inside a single availability zone.  The RDS already uses a multi AZ deployment so if the availability zone fails we will lose access to our website. To solve this we can use an Autoscaling Group to ensure that we have at least 2 instances running in separate availability zones.
 
