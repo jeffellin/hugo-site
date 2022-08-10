@@ -8,6 +8,12 @@
   url = "tech"
   weight = -109
 
+[[main]]
+  name = "Archive"
+  url = "archive"
+  weight = -108
+
+
 # Submenus are done this way: parent -> identifier
 [[main]]
   name = "Links"
