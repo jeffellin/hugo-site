@@ -1,158 +1,79 @@
 +++
-title = "Introduction to Crossplane"
-date = 2023-11-04T13:35:15-04:00
+title = "Crossplane Connection Details"
+date = 2023-11-05T13:35:15-04:00
 tags = ["kubernetes","crossplane"]
 featured_image = ""
-description = "Introduction to Crossplane"
+description = "Crossplane Connection Details"
 draft = "false"
-series = ["Crossplane Intro"]
+series = "Crossplane Intro"
+featureImage = "/wp-content/uploads/2023/crossplane-og.jpg"
+
 +++
 
+In an era where cloud computing has become the backbone of modern IT infrastructure, the need for efficient and secure resource management is paramount. Crossplane, a dynamic and versatile tool, has emerged as a game-changer in this space. It offers a comprehensive solution for orchestrating cloud resources and handling associated credentials. In this exploration, we delve into the world of Crossplane, understanding its key functionalities, including dynamic credential generation, Role-Based Access Control (RBAC), and the seamless integration with external stores like HashiCorp's Vault. Join us on the second part of this journey to discover how Crossplane is transforming the way organizations manage their cloud resources and ensuring a more secure, streamlined, and efficient infrastructure.
 
-Crossplane your infra API
-## Intro
-Crossplane is an open-source Kubernetes add-on that extends Kubernetes' capabilities to manage cloud infrastructure and other external resources across any cloud. It empowers organizations to provision and manage infrastructure resources like databases, storage volumes, virtual machines, and more through Kubernetes APIs, simplifying the adoption and management of cloud-native applications.
+If you missed [Part1: Intro to Crossplane](/2023/11/04/introduction-to-crossplane/)
 
+## Connection Details
 
-Key features and components of Crossplane include:
+In the previous post of this Crossplane series, we provided a high-level overview of what Crossplane is and highlighted its significance. However, one important aspect that was overlooked is the concept of credential binding. When provisioning a resource, it's not just about creating the resource itself but also ensuring that the necessary credentials are available for seamless access within the consuming application.
 
+When you create or update a custom resource that requires credentials for access, Crossplane takes care of generating a ConnectionSecret dynamically. This ConnectionSecret contains specific connection details, such as access credentials, relevant to that resource, and securely stores it as a Kubernetes secret.
 
-1. [Providers](#providers)
-1. [Composite Resources](#composite-resources)
-1. [Composite Resource Definitions](#composite-resource-definitions )
-
-
-Crossplane streamlines the management of infrastructure resources in a Kubernetes environment, fostering a consistent and declarative approach for provisioning and maintaining infrastructure alongside application workloads. This integration of infrastructure and application management facilitates more efficient, agile, and cost-effective IT operations.
+Each managed resource within a composition can specify a set of connection details for its resource type. For example, an RDS database may provide a host name, port, username, and password, while an AWSAccessKey would offer its SecretKey and AccessKey. It's important to note that the provider's author is responsible for defining which credentials are written to the ConnectionSecret.
 
 
-## Providers
+![Credential Details](/wp-content/uploads/2023/rds-credentials.jpg)
 
-Crossplane supports various cloud providers and infrastructure services known as "providers." These providers offer controllers and APIs to interact with specific cloud platforms, enabling users to provision and manage resources across multiple clouds and on-premises environments.
+## Connection Details for Compositions
 
-For instance the [s3 AWS provider](https://marketplace.upbound.io/providers/upbound/provider-aws-s3/v0.43.1) can be used to provision a bucket in Amazon.  
+When writing a composition, you have the capability to consolidate the credentials from different managed resources into a single secret dedicated to that composition.
 
-```yaml
-apiVersion: s3.aws.upbound.io/v1beta1
-kind: Bucket
-metadata:
-  annotations:
-  name: bucket-name
-spec:
-  forProvider:
-    region: us-west-1
-```
+![Composite Secret](/wp-content/uploads/2023/composite-secret.jpg)
 
-Creating a bucket involves applying the resource Bucket. An operator familiar with Kubernetes can easily create as many buckets as needed using the kubectl apply command. Similarly, resources can be updated and deleted using the corresponding apply and delete kubectl commands.
-
-The resources created by the Crossplane provider are referred to as Managed Resources.
-
-![Managed Resources](/wp-content/uploads/2023/Crossplane-Managed-Resources.png)
-
-## Composite Resources
-
-Crossplane introduces the concept of composite resources, allowing users to define and compose complex infrastructure resources from simpler building blocks.
-
-Since developers often require multiple Managed resources simultaneously, Crossplane introduces the concept of Composite Resources, which allows multiple managed resources to be configured as a group. The creator of the composite resource can provide default options to pass to the provider and define which settings developers are allowed to override.
+In addition to utilizing values from the child managed resources, we can also incorporate fields from both the resource definition and the composition itself.
 
 ```yaml
-apiVersion: apiextensions.crossplane.io/v1
-kind: Composition
-metadata:
-  name: bucket-composition
-spec:
-  compositeTypeRef:
-    apiVersion: ellin.net/v1alpha1
-    kind: XBucketBrigade
-  resources:
-    - name: StorageBucketA
-      base:
-        apiVersion: s3.aws.upbound.io/v1beta1
-        kind: Bucket
-        spec:
-          forProvider:
-            region: us-east-1
-          providerConfigRef:
-            name: aws-provider-266463974589
-     - name: StorageBucketB
-      base:
-        apiVersion: s3.aws.upbound.io/v1beta1
-        kind: Bucket
-        spec:
-          forProvider:
-            region: us-east-1
-          providerConfigRef:
-            name: aws-provider-266463974589
-        ...
-   ```
-
-In the example above, the composite resource provisions two buckets, StorageBucketA and StorageBucketB.
-
-You may notice that the above resource does not provide the `metadata.name` field for each bucket. This is because the operator who created this composition has chosen to allow the developer to choose those names. To populate the Bucket object correctly at creation time, a series of patches will be needed.
-
-```yaml
+      connectionDetails:
+       - name: type
+         value: postgresql
+       - fromConnectionSecretKey: port
+       - fromConnectionSecretKey: host
+       - name: username
+         value: postgres
+       - fromConnectionSecretKey: password
+       - name: database
+         type: FromFieldPath
+         fromFieldPath: spec.forProvider.values.auth.database
       patches:
-        - fromFieldPath: "spec.bucketAName"
-          toFieldPath: "metadata.name"
-          policy:
-            fromFieldPath: Required
 ```
+This snippet is for a composition that provisions a database publishes 5 fields from its managed resources.
 
-```yaml
-      patches:
-        - fromFieldPath: "spec.bucketBName"
-          toFieldPath: "metadata.name"
-          policy:
-            fromFieldPath: Required
-```
-The instance of the object used to invoke the creation of the composition is as follows:
+Here's an improved presentation of the information you provided:
 
+1. **Type**: This value remains fixed at "Postgres" since this RDS Instance is exclusively for PostgreSQL.
 
-```yaml
-apiVersion: ellin.net/v1alpha1
-kind: XBucketBrigade
-metadata:
-  name: brigade
-spec:
-  bucketAName: foo
-  bucketBName: bar
-```
+2. **Port**: This value represents the port number that the application must utilize to establish communication with the database.
 
-The inputs from `XBucketBrigade` are used to create the managed resources in the composition.
+3. **Username**: This value signifies the username that the application must employ for establishing a connection.
 
+4. **Password**: This value corresponds to the password that the application needs for the connection.
 
-## Composite Resource Definitions
-To formalize a given composite resource, a Kubernetes CRD is required to define the schema of the resource.
+5. **Database**: This value, initially specified as the database name in the CompositeResource, is also utilized by the provider to create the corresponding schema within the provisioned database.
 
-Crossplane defines Composite Resource Definitions (XRDs) for scaffolding a CRD, allowing consumers of the composition to declare and manage these resources in a Kubernetes-native way.
+6. **Host**:  This value, is the hostname that the client should use to connect.
 
+![Combined Secret](/wp-content/uploads/2023/combined-secret.jpg)
 
-```yaml
-apiVersion: apiextensions.crossplane.io/v1
-kind: CompositeResourceDefinition
-metadata: 
-  name: xbucketbrigades.ellin.net
-spec:
-  group: ellin.net
-  names:
-    kind: XBucketBrigade
-    plural: xbucketbrigades
-  versions:
-  - name: v1alpha1
-    served: true
-    referenceable: true
-    schema:
-      openAPIV3Schema:
-        type: object
-        properties:
-          spec:
-            type: object
-            properties:
-              bucketAName:
-                type: string
-              bucketBName:
-                type: string
-```
+Above you can see the combined secret that I created with my composition.  This is the secret we will want to hand off to your application teams.
 
-## Publishing Connection Details.
+## Handing off credentials
 
-Next up we will discuss the methods in which crossplane can publish connection information such as usernames and passwords to the developers who provisioned them. We will also see how to pass these crewdentials easily using the Kubernetes [Service binding specification](https://servicebinding.io).
+Once the credentials are made available, they can be securely provided to the application that will be using them. Role-Based Access Control (RBAC) can be effectively employed to restrict visibility to these resources. In a production environment, typically, only the service account running the pod containing the application should have access to these credentials.
+
+Furthermore, besides storing connectionDetails within secrets, Crossplane offers the capability to publish secrets to an external store, such as HashiCorp's Vault, for enhanced security and centralized management of secrets.
+
+## Conclusion. 
+
+In summary, Crossplane is a versatile and powerful tool for simplifying the provisioning and management of cloud resources and credentials. Its dynamic generation of ConnectionSecrets, credential consolidation, and RBAC access control features enhance security and efficiency. Additionally, Crossplane's ability to integrate with external stores like HashiCorp's Vault adds an extra layer of security and centralized management. Crossplane's capabilities make it a valuable asset for organizations looking to streamline their resource management processes and enhance their overall cloud infrastructure.
+

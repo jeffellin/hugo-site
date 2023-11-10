@@ -10,7 +10,7 @@ disqusShortname = "www-ellin-com"
 DefaultContentLanguage = "en"
 # [languages]
 # config/_default/languages.toml
-
+ga_analytics = "G-R1VVD46N6H"
 # [menus]
 # config/_default/menus/menu.xx.toml
 
