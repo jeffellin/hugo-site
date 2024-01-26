@@ -7,6 +7,7 @@ description = "Intro to Kyverno"
 draft = "false"
 codeLineNumbers = true
 codeMaxLines = 100
+featureImage = "/wp-content/uploads/2024/kyverno.png"
 +++
 
 In my spare time, I've been delving into various software offerings within the CNCF landscape that I've heard about but haven't had the chance to thoroughly explore and experiment with in my own projects.
@@ -171,7 +172,7 @@ In addition to the above use cases Kyverno has a few other capabilities.
 
 1. Cleanup - Kyverno allows you to specify actions for object deletion. For instance, when a new version of a Deployment is created, it can initiate the creation of a new ReplicaSet with the desired replicas while scaling the current one down to zero.
 
-2. [Image Verification](https://kyverno.io/policies/tekton/verify-tekton-taskrun-vuln-scan/ verify-tekton-taskrun-vuln-scan/) - Kyverno facilitates image verification before execution. This involves ensuring that the image adheres to specified requirements, such as the necessity for a signed bundle and a vulnerability scan conducted by Grype, with no vulnerabilities exceeding a threshold of 8.0.  
+2. [Image Verification](https://kyverno.io/policies/tekton/verify-tekton-taskrun-vuln-scan/)  - Kyverno facilitates image verification before execution. This involves ensuring that the image adheres to specified requirements, such as the necessity for a signed bundle and a vulnerability scan conducted by Grype, with no vulnerabilities exceeding a threshold of 8.0.  
 
 For a comprehensive list of example Kyverno polies check [here](https://kyverno.io/policies/?policytypes=cleanUp)
 
