@@ -1,0 +1,322 @@
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="devGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4CAF50;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#388E3C;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="ciGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2196F3;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1976D2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="prodGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF9800;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F57C00;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="testGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9C27B0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7B1FA2;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Drop shadow filter -->
+    <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="3" dy="3" stdDeviation="2" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#f8f9fa"/>
+  
+  <!-- Title -->
+  <text x="600" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#333">
+    TDD with Yellowbrick Test Container in CI/CD Pipeline
+  </text>
+  
+  <!-- Development Environment -->
+  <g id="dev-environment">
+    <rect x="50" y="80" width="300" height="680" rx="15" fill="url(#devGradient)" filter="url(#dropShadow)" opacity="0.9"/>
+    <text x="200" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white">
+      Development Environment
+    </text>
+    
+    <!-- TDD Cycle -->
+    <circle cx="200" cy="180" r="50" fill="#fff" opacity="0.9" stroke="#388E3C" stroke-width="3"/>
+    <text x="200" y="185" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#388E3C">
+      TDD Cycle
+    </text>
+    
+    <!-- TDD Steps -->
+    <g id="tdd-steps">
+      <!-- Red -->
+      <rect x="70" y="250" width="260" height="40" rx="8" fill="#f44336" opacity="0.8"/>
+      <text x="200" y="275" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white" font-weight="bold">
+        🔴 RED: Write Failing Test
+      </text>
+      
+      <!-- Green -->
+      <rect x="70" y="300" width="260" height="40" rx="8" fill="#4CAF50" opacity="0.8"/>
+      <text x="200" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white" font-weight="bold">
+        🟢 GREEN: Make Test Pass
+      </text>
+      
+      <!-- Refactor -->
+      <rect x="70" y="350" width="260" height="40" rx="8" fill="#2196F3" opacity="0.8"/>
+      <text x="200" y="375" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="white" font-weight="bold">
+        🔵 REFACTOR: Improve Code
+      </text>
+    </g>
+    
+    <!-- Local Testing -->
+    <rect x="70" y="420" width="260" height="100" rx="8" fill="#fff" opacity="0.9" stroke="#388E3C" stroke-width="2"/>
+    <text x="200" y="440" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#388E3C">
+      Local Testing
+    </text>
+    <text x="80" y="460" font-family="Arial, sans-serif" font-size="11" fill="#333">
+      • Yellowbrick Test Container
+    </text>
+    <text x="80" y="475" font-family="Arial, sans-serif" font-size="11" fill="#333">
+      • Real Yellowbrick Database
+    </text>
+    <text x="80" y="490" font-family="Arial, sans-serif" font-size="11" fill="#333">
+      • Distribution Testing
+    </text>
+    <text x="80" y="505" font-family="Arial, sans-serif" font-size="11" fill="#333">
+      • JSON and System Tables
+    </text>
+    
+    <!-- Code Commit -->
+    <rect x="70" y="540" width="260" height="60" rx="8" fill="#6C757D" opacity="0.8"/>
+    <text x="200" y="565" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="white" font-weight="bold">
+      Commit and Push
+    </text>
+    <text x="200" y="585" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+      Tests passing locally
+    </text>
+    
+    <!-- Tools -->
+    <rect x="70" y="620" width="260" height="120" rx="8" fill="#fff" opacity="0.9" stroke="#388E3C" stroke-width="2"/>
+    <text x="200" y="640" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#388E3C">
+      Developer Tools
+    </text>
+    <text x="80" y="660" font-family="Arial, sans-serif" font-size="11" fill="#333">
+      • IDE (IntelliJ/VS Code)
+    </text>
+    <text x="80" y="675" font-family="Arial, sans-serif" font-size="11" fill="#333">
+      • Docker Desktop
+    </text>
+    <text x="80" y="690" font-family="Arial, sans-serif" font-size="11" fill="#333">
+      • Maven/Gradle
+    </text>
+    <text x="80" y="705" font-family="Arial, sans-serif" font-size="11" fill="#333">
+      • Spring Boot Test
+    </text>
+    <text x="80" y="720" font-family="Arial, sans-serif" font-size="11" fill="#333">
+      • JUnit 5 + Testcontainers
+    </text>
+  </g>
+  
+  <!-- CI/CD Pipeline -->
+  <g id="cicd-pipeline">
+    <rect x="400" y="80" width="350" height="680" rx="15" fill="url(#ciGradient)" filter="url(#dropShadow)" opacity="0.9"/>
+    <text x="575" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white">
+      CI/CD Pipeline
+    </text>
+    
+    <!-- Pipeline Steps -->
+    <g id="pipeline-steps">
+      <!-- Source Control -->
+      <rect x="420" y="140" width="310" height="50" rx="8" fill="#fff" opacity="0.9"/>
+      <text x="575" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1976D2">
+        Source Control Trigger
+      </text>
+      <text x="575" y="180" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#333">
+        GitHub/GitLab webhook on push
+      </text>
+      
+      <!-- Build -->
+      <rect x="420" y="210" width="310" height="50" rx="8" fill="#28a745" opacity="0.8"/>
+      <text x="575" y="235" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+        Build and Compile
+      </text>
+      <text x="575" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+        Maven compile, dependencies
+      </text>
+      
+      <!-- Unit Tests -->
+      <rect x="420" y="280" width="310" height="50" rx="8" fill="#6f42c1" opacity="0.8"/>
+      <text x="575" y="305" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+        Unit Tests
+      </text>
+      <text x="575" y="320" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+        Fast, isolated tests
+      </text>
+      
+      <!-- Integration Tests with Test Container -->
+      <rect x="420" y="350" width="310" height="120" rx="8" fill="url(#testGradient)" opacity="0.9"/>
+      <text x="575" y="375" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+        Integration Tests
+      </text>
+      <text x="575" y="395" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="white">
+        Yellowbrick Test Container
+      </text>
+      <text x="430" y="415" font-family="Arial, sans-serif" font-size="11" fill="white">
+        • Spin up real Yellowbrick instance
+      </text>
+      <text x="430" y="430" font-family="Arial, sans-serif" font-size="11" fill="white">
+        • Execute bootstrap scripts
+      </text>
+      <text x="430" y="445" font-family="Arial, sans-serif" font-size="11" fill="white">
+        • Run database integration tests
+      </text>
+      <text x="430" y="460" font-family="Arial, sans-serif" font-size="11" fill="white">
+        • Test Yellowbrick-specific features
+      </text>
+      
+      <!-- Security & Quality -->
+      <rect x="420" y="490" width="310" height="50" rx="8" fill="#fd7e14" opacity="0.8"/>
+      <text x="575" y="515" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+        Security and Quality
+      </text>
+      <text x="575" y="530" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+        SonarQube, vulnerability scans
+      </text>
+      
+      <!-- Package -->
+      <rect x="420" y="560" width="310" height="50" rx="8" fill="#20c997" opacity="0.8"/>
+      <text x="575" y="585" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+        Package and Artifact
+      </text>
+      <text x="575" y="600" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+        Docker image, JAR files
+      </text>
+      
+      <!-- Deploy -->
+      <rect x="420" y="630" width="310" height="50" rx="8" fill="#dc3545" opacity="0.8"/>
+      <text x="575" y="655" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+        Deploy
+      </text>
+      <text x="575" y="670" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="white">
+        Staging to Production
+      </text>
+      
+      <!-- CI Tools -->
+      <rect x="420" y="700" width="310" height="50" rx="8" fill="#fff" opacity="0.9"/>
+      <text x="575" y="720" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1976D2">
+        GitHub Actions / Jenkins / GitLab CI
+      </text>
+      <text x="575" y="735" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">
+        Docker-in-Docker support required
+      </text>
+    </g>
+  </g>
+  
+  <!-- Production Environment -->
+  <g id="prod-environment">
+    <rect x="800" y="80" width="350" height="680" rx="15" fill="url(#prodGradient)" filter="url(#dropShadow)" opacity="0.9"/>
+    <text x="975" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white">
+      Production Environment
+    </text>
+    
+    <!-- Production Yellowbrick -->
+    <rect x="820" y="140" width="310" height="120" rx="8" fill="#fff" opacity="0.9"/>
+    <text x="975" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#F57C00">
+      Production Yellowbrick
+    </text>
+    <text x="830" y="185" font-family="Arial, sans-serif" font-size="12" fill="#333">
+      • Enterprise Edition
+    </text>
+    <text x="830" y="200" font-family="Arial, sans-serif" font-size="12" fill="#333">
+      • Multi-node cluster
+    </text>
+    <text x="830" y="215" font-family="Arial, sans-serif" font-size="12" fill="#333">
+      • Production data
+    </text>
+    <text x="830" y="230" font-family="Arial, sans-serif" font-size="12" fill="#333">
+      • Real workloads
+    </text>
+    <text x="830" y="245" font-family="Arial, sans-serif" font-size="12" fill="#333">
+      • Same SQL compatibility as tests!
+    </text>
+    
+    <!-- Confidence Badge -->
+    <circle cx="975" cy="320" r="60" fill="#4CAF50" opacity="0.9"/>
+    <text x="975" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      HIGH
+    </text>
+    <text x="975" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      CONFIDENCE
+    </text>
+    
+    <!-- Benefits -->
+    <rect x="820" y="400" width="310" height="180" rx="8" fill="#fff" opacity="0.9"/>
+    <text x="975" y="425" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#F57C00">
+      Production Benefits
+    </text>
+    <text x="830" y="445" font-family="Arial, sans-serif" font-size="12" fill="#333">
+      • Tested distribution strategies
+    </text>
+    <text x="830" y="460" font-family="Arial, sans-serif" font-size="12" fill="#333">
+      • Validated JSON operations
+    </text>
+    <text x="830" y="475" font-family="Arial, sans-serif" font-size="12" fill="#333">
+      • Proven system table queries
+    </text>
+    <text x="830" y="490" font-family="Arial, sans-serif" font-size="12" fill="#333">
+      • Verified SQL compatibility
+    </text>
+    <text x="830" y="505" font-family="Arial, sans-serif" font-size="12" fill="#333">
+      • Known performance characteristics
+    </text>
+    <text x="830" y="520" font-family="Arial, sans-serif" font-size="12" fill="#333">
+      • Reduced production bugs
+    </text>
+    <text x="830" y="535" font-family="Arial, sans-serif" font-size="12" fill="#333">
+      • Faster feature delivery
+    </text>
+    <text x="830" y="550" font-family="Arial, sans-serif" font-size="12" fill="#333">
+      • Better database utilization
+    </text>
+    <text x="830" y="565" font-family="Arial, sans-serif" font-size="12" fill="#333">
+      • Predictable behavior
+    </text>
+    
+    <!-- Monitoring -->
+    <rect x="820" y="600" width="310" height="80" rx="8" fill="#6c757d" opacity="0.8"/>
+    <text x="975" y="625" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+      Monitoring and Feedback
+    </text>
+    <text x="830" y="645" font-family="Arial, sans-serif" font-size="11" fill="white">
+      • Application metrics
+    </text>
+    <text x="830" y="660" font-family="Arial, sans-serif" font-size="11" fill="white">
+      • Database performance
+    </text>
+    <text x="830" y="675" font-family="Arial, sans-serif" font-size="11" fill="white">
+      • Error rates and alerts
+    </text>
+    
+    <!-- Feedback Arrow -->
+    <path d="M 850 700 Q 200 750 100 650" stroke="#6c757d" stroke-width="3" fill="none" marker-end="url(#arrowhead)" stroke-dasharray="5,5"/>
+  </g>
+  
+  <!-- Arrows -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+    </marker>
+  </defs>
+  
+  <!-- Dev to CI -->
+  <path d="M 350 400 L 400 400" stroke="#333" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="375" y="390" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">push</text>
+  
+  <!-- CI to Prod -->
+  <path d="M 750 400 L 800 400" stroke="#333" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="775" y="390" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">deploy</text>
+  
+  <!-- Test Container Highlight -->
+  <rect x="415" y="345" width="320" height="130" rx="8" fill="none" stroke="#9C27B0" stroke-width="4" stroke-dasharray="10,5"/>
+  <text x="575" y="485" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#9C27B0">
+    KEY: Real Yellowbrick Testing in CI
+  </text>
+</svg>
