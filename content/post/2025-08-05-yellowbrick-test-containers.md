@@ -1,17 +1,120 @@
 +++
-title = "Introducing the Yellowbrick TestContainer"
-date = 2025-08-15T13:35:15-04:00
-tags = ["spring","yellowbrick","tdd" ]
-description = "Introducing the Yellowbrick TestContainer"
+title = "Introduction to Crossplane"
+date = 2023-11-04T13:35:15-04:00
+tags = ["kubernetes","crossplane"]
+featured_image = ""
+description = "Introduction to Crossplane"
 draft = "false"
-codeLineNumbers = true
-codeMaxLines = 100
-featureImage = "/wp-content/uploads/2025/yb-logo.jpeg"
-+++
+series = "Crossplane Intro"
+featureImage = "/wp-content/uploads/2023/crossplane-og.jpg"
 
++++
 # Testing with Confidence: Introducing the Yellowbrick Test Container for Spring Boot
 
 In the world of modern software development, integration testing has become crucial for building reliable applications. When your application depends on a specialized database like Yellowbrick, ensuring your tests run against a real database instance becomes even more important. Today, we're excited to introduce the **Yellowbrick Test Container** - a powerful testing tool that brings the full capabilities of Yellowbrick Database directly into your Spring Boot test suite.
+
+## Test-Driven Development with CI/CD Integration
+
+The Yellowbrick Test Container truly shines when integrated into a comprehensive Test-Driven Development (TDD) workflow within your CI/CD pipeline. The following diagram illustrates how the container facilitates confidence from development through production deployment:
+
+![TDD CI/CD Workflow](cicd_tdd_workflow_diagram)
+
+### The Complete TDD Workflow
+
+**Development Environment (Local TDD Cycle)**
+
+The development process begins with the classic TDD cycle—Red, Green, Refactor—but with a crucial difference: instead of testing against mock databases or PostgreSQL substitutes, developers write failing tests against a real Yellowbrick instance running locally via the test container.
+
+```java
+// Red: Write a failing test for Yellowbrick-specific functionality
+@Test
+void shouldDistributeDataCorrectly() {
+    // This test initially fails - no table exists yet
+    jdbcTemplate.execute("""
+        CREATE TABLE user_analytics (
+            user_id INTEGER,
+            event_count INTEGER,
+            last_activity TIMESTAMP
+        ) DISTRIBUTE ON (user_id)
+    """);
+    
+    // Test will fail until implementation is complete
+    var result = yellowbrick.executeQuery(
+        "SELECT distribution_key FROM sys.table WHERE name = 'user_analytics'"
+    );
+    assertThat(result.getStdout()).contains("user_id");
+}
+```
+
+**Green Phase**: Developers implement the minimal code to make the test pass, knowing their solution works with actual Yellowbrick distribution strategies, JSON handling, and system tables.
+
+**Refactor Phase**: Code improvements are validated against the real database, ensuring optimizations don't break Yellowbrick-specific functionality.
+
+**CI/CD Pipeline Integration**
+
+When developers push code, the CI/CD pipeline automatically:
+
+1. **Builds and Compiles**: Standard Maven/Gradle build process
+2. **Runs Unit Tests**: Fast, isolated tests for business logic
+3. **Executes Integration Tests**: **The critical phase** where Yellowbrick Test Container spins up a real database instance
+4. **Validates Production Readiness**: Security scans and quality checks
+5. **Packages and Deploys**: Creates artifacts ready for production
+
+**The Test Container Advantage in CI**
+
+In the CI environment, the test container provides the same benefits as local development:
+
+```yaml
+# GitHub Actions example
+name: CI Pipeline
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+    - name: Run Integration Tests
+      run: mvn test
+      env:
+        # Test container automatically handles Yellowbrick setup
+        TESTCONTAINERS_CHECKS_DISABLE: true
+```
+
+The container automatically:
+- Pulls the Yellowbrick Community Edition image
+- Starts a real database cluster
+- Executes bootstrap scripts for schema setup
+- Runs all integration tests against actual Yellowbrick features
+- Cleans up resources after test completion
+
+**Production Confidence**
+
+By the time code reaches production, teams have **high confidence** because:
+
+- **Distribution Strategies** have been tested against real Yellowbrick partitioning
+- **JSON Operations** have been validated with actual Yellowbrick JSON support
+- **System Table Queries** have been verified against real `sys.*` tables
+- **SQL Compatibility** has been proven with the actual Yellowbrick SQL engine
+- **Performance Characteristics** are understood from container testing
+
+### Key Benefits of This Workflow
+
+**🔄 Continuous Validation**: Every code change is validated against real Yellowbrick functionality, not approximations.
+
+**⚡ Fast Feedback**: Developers get immediate feedback about Yellowbrick compatibility without needing to deploy to staging environments.
+
+**🛡️ Risk Reduction**: Production deployments have significantly lower risk because database-specific features have been thoroughly tested.
+
+**📈 Velocity Increase**: Teams can move faster knowing their tests provide accurate validation of production behavior.
+
+**🎯 Feature Confidence**: New features using advanced Yellowbrick capabilities (analytics functions, distribution strategies, JSON operations) are tested from day one.
+
+This integrated approach transforms database testing from a deployment-time concern into a development-time advantage, enabling teams to build robust applications with confidence in their Yellowbrick integration.
 
 ## Why Test Containers Matter
 
@@ -482,18 +585,13 @@ echo "Yellowbrick environment setup complete"
 ```sql
 -- Create UTF8 database for proper character encoding support
 CREATE DATABASE test_analytics 
-WITH ENCODING 'UTF8' 
-LC_COLLATE='en_US.UTF-8' 
-LC_CTYPE='en_US.UTF-8';
+WITH ENCODING 'UTF8' ;
 ```
-
+-- TODO ADD ENABLE JSON
 **3. Schema Setup (`20_create_schema.sql`):**
 ```sql
 -- Connect to the new database
 \connect test_analytics;
-
--- Enable JSON features and extensions
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- Create schema for analytics data
 CREATE SCHEMA IF NOT EXISTS analytics;
@@ -504,15 +602,13 @@ SET search_path TO analytics, reporting, public;
 ```
 
 **4. Table Creation (`30_create_tables.sql`):**
-
-**4. Table Creation (`30_create_tables.sql`):**
 ```sql
 -- Create table with JSON support and proper distribution
 CREATE TABLE analytics.user_events (
-    id UUID DEFAULT uuid_generate_v4(),
+    id VARCHAR(36) DEFAULT SYS.GEN_RANDOM_UUID(),
     user_id INTEGER NOT NULL,
     event_type VARCHAR(50) NOT NULL,
-    event_data JSON,
+    event_data VARCHAR(8000), -- Using VARCHAR for JSON-like data
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     session_id VARCHAR(100)
 ) DISTRIBUTE ON (user_id);
@@ -522,7 +618,7 @@ CREATE TABLE analytics.daily_metrics (
     metric_date DATE NOT NULL,
     metric_name VARCHAR(100) NOT NULL,
     metric_value NUMERIC(15,2),
-    metadata JSON,
+    metadata VARCHAR(8000), -- Using VARCHAR for JSON-like data
     PRIMARY KEY (metric_date, metric_name)
 ) DISTRIBUTE ON (metric_date);
 
@@ -616,11 +712,6 @@ When the container starts, the following happens:
 #!/bin/bash
 # 01_conditional_setup.sh
 
-if [[ "$YB_DEBUG" == "true" ]]; then
-    echo "Debug mode enabled - setting up additional logging"
-    ybsql -c "ALTER SYSTEM SET log_statement = 'all';"
-fi
-
 # Check if specific table exists before creating
 TABLE_EXISTS=$(ybsql -t -c "SELECT COUNT(*) FROM information_schema.tables WHERE table_name='user_events';" | tr -d ' ')
 if [[ "$TABLE_EXISTS" == "0" ]]; then
@@ -667,7 +758,7 @@ void shouldQueryBootstrapJsonData() {
     List<Map<String, Object>> events = jdbcTemplate.queryForList("""
         SELECT user_id, event_type, event_data, timestamp
         FROM analytics.user_events 
-        WHERE event_data->>'source' = 'web'
+        WHERE event_data LIKE '%"source": "web"%'
         ORDER BY timestamp
     """);
 
@@ -675,7 +766,7 @@ void shouldQueryBootstrapJsonData() {
     assertThat(events).hasSize(1);
     assertThat(events.get(0).get("event_type")).isEqualTo("login");
     
-    // Access JSON data as String for further processing
+    // Access JSON-like data as String for further processing
     String eventData = (String) events.get(0).get("event_data");
     assertThat(eventData).contains("\"browser\": \"chrome\"");
 }
@@ -708,10 +799,11 @@ The `yellowbrick.executeQuery()` method executes commands directly using Yellowb
 void shouldTestYellowbrickDistributionWithBootstrapData() throws Exception {
     // executeQuery() uses ybsql and returns raw text output
     var result = yellowbrick.executeQuery("""
-        SELECT table_name, distribution_key 
-        FROM sys.table 
-        WHERE schema_name = 'analytics'
-        ORDER BY table_name
+        SELECT t.name, t.distribution_key 
+        FROM sys.table t, sys.schema s
+        where s.schema_id = t.schema_id
+        and s.name = 'analytics'
+        ORDER BY t.name
     """);
 
     // Check command execution success
@@ -807,11 +899,11 @@ while ! ybsql -c "SELECT state FROM sys.cluster;" | grep -q "RUNNING"; do
 done
 ```
 
-**4. Enable Required Features in Separate Scripts**: Include any extensions or features your application needs:
+**4. Enable Required Features in Separate Scripts**: Include any features your application needs:
 ```sql
--- 15_enable_extensions.sql
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-CREATE EXTENSION IF NOT EXISTS "ltree";  -- If supported by Yellowbrick
+-- 15_enable_features.sql
+-- Note: Yellowbrick may not support all PostgreSQL extensions
+-- Focus on Yellowbrick-native functionality instead
 ```
 
 **5. Use Yellowbrick Distribution Strategies**: Always specify distribution strategies for optimal performance:
@@ -905,133 +997,6 @@ static YellowbrickContainer yellowbrick = YellowbrickContainer.create()
         System.out.print("[YELLOWBRICK] " + outputFrame.getUtf8String()))
     .withStartupTimeout(Duration.ofMinutes(20));
 ```
-
-### Connection Problems
-
-```java
-private void testConnectionWithRetry(JdbcTemplate jdbcTemplate, int maxRetries) {
-    for (int i = 0; i < maxRetries; i++) {
-        try {
-            jdbcTemplate.queryForObject("SELECT 1", Integer.class);
-            return;
-        } catch (Exception e) {
-            if (i == maxRetries - 1) {
-                throw new RuntimeException("Failed to connect after " + maxRetries + " attempts", e);
-            }
-            
-            try {
-                Thread.sleep(10000); // Wait 10 seconds between attempts
-            } catch (InterruptedException ie) {
-                Thread.currentThread().interrupt();
-                throw new RuntimeException("Interrupted during connection retry", ie);
-            }
-        }
-    }
-}
-```
-
-## Test-Driven Development with CI/CD Integration
-
-The Yellowbrick Test Container truly shines when integrated into a comprehensive Test-Driven Development (TDD) workflow within your CI/CD pipeline. The following diagram illustrates how the container facilitates confidence from development through production deployment:
-
-![Anatomy of a Rule](/wp-content/uploads/2025/cicd_tdd_workflow_diagram.svg)
-
-### The Complete TDD Workflow
-
-**Development Environment (Local TDD Cycle)**
-
-The development process begins with the classic TDD cycle—Red, Green, Refactor—but with a crucial difference: instead of testing against mock databases or PostgreSQL substitutes, developers write failing tests against a real Yellowbrick instance running locally via the test container.
-
-```java
-// Red: Write a failing test for Yellowbrick-specific functionality
-@Test
-void shouldDistributeDataCorrectly() {
-    // This test initially fails - no table exists yet
-    jdbcTemplate.execute("""
-        CREATE TABLE user_analytics (
-            user_id INTEGER,
-            event_count INTEGER,
-            last_activity TIMESTAMP
-        ) DISTRIBUTE ON (user_id)
-    """);
-    
-    // Test will fail until implementation is complete
-    var result = yellowbrick.executeQuery(
-        "SELECT distribution_key FROM sys.table WHERE table_name = 'user_analytics'"
-    );
-    assertThat(result.getStdout()).contains("user_id");
-}
-```
-
-**Green Phase**: Developers implement the minimal code to make the test pass, knowing their solution works with actual Yellowbrick distribution strategies, JSON handling, and system tables.
-
-**Refactor Phase**: Code improvements are validated against the real database, ensuring optimizations don't break Yellowbrick-specific functionality.
-
-**CI/CD Pipeline Integration**
-
-When developers push code, the CI/CD pipeline automatically:
-
-1. **Builds and Compiles**: Standard Maven/Gradle build process
-2. **Runs Unit Tests**: Fast, isolated tests for business logic
-3. **Executes Integration Tests**: **The critical phase** where Yellowbrick Test Container spins up a real database instance
-4. **Validates Production Readiness**: Security scans and quality checks
-5. **Packages and Deploys**: Creates artifacts ready for production
-
-**The Test Container Advantage in CI**
-
-In the CI environment, the test container provides the same benefits as local development:
-
-```yaml
-# GitHub Actions example
-name: CI Pipeline
-on: [push, pull_request]
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-    - name: Run Integration Tests
-      run: mvn test
-      env:
-        # Test container automatically handles Yellowbrick setup
-        TESTCONTAINERS_CHECKS_DISABLE: true
-```
-
-The container automatically:
-- Pulls the Yellowbrick Community Edition image
-- Starts a real database cluster
-- Executes bootstrap scripts for schema setup
-- Runs all integration tests against actual Yellowbrick features
-- Cleans up resources after test completion
-
-**Production Confidence**
-
-By the time code reaches production, teams have **high confidence** because:
-
-- **Distribution Strategies** have been tested against real Yellowbrick partitioning
-- **JSON Operations** have been validated with actual Yellowbrick JSON support
-- **System Table Queries** have been verified against real `sys.*` tables
-- **SQL Compatibility** has been proven with the actual Yellowbrick SQL engine
-- **Performance Characteristics** are understood from container testing
-
-### Key Benefits of This Workflow
-
-**🔄 Continuous Validation**: Every code change is validated against real Yellowbrick functionality, not approximations.
-
-**⚡ Fast Feedback**: Developers get immediate feedback about Yellowbrick compatibility without needing to deploy to staging environments.
-
-**🛡️ Risk Reduction**: Production deployments have significantly lower risk because database-specific features have been thoroughly tested.
-
-**📈 Velocity Increase**: Teams can move faster knowing their tests provide accurate validation of production behavior.
-
-**🎯 Feature Confidence**: New features using advanced Yellowbrick capabilities (analytics functions, distribution strategies, JSON operations) are tested from day one.
-
-This integrated approach transforms database testing from a deployment-time concern into a development-time advantage, enabling teams to build robust applications with confidence in their Yellowbrick integration.
 
 ## Conclusion
 
